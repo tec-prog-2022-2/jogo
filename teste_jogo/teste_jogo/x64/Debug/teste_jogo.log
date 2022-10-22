@@ -1,0 +1,9 @@
+﻿  ListaPersonagens.cpp
+C:\joao\utfpr\quarto_periodo\tec_prog\provas\teste_jogo\teste_jogo\ListaPersonagens.h(3,9): fatal error C1083: Não é possível abrir arquivo incluir: 'Lista.h': No such file or directory
+  main.cpp
+  Personagem.cpp
+  Principal.cpp
+C:\joao\utfpr\quarto_periodo\tec_prog\provas\teste_jogo\teste_jogo\Principal.cpp(8,4): error C2664: 'Personagem::Personagem(const float,const float,const float,const float,const char *)': não é possível converter um argumento 3 de 'const char [33]' em 'const float'
+C:\joao\utfpr\quarto_periodo\tec_prog\provas\teste_jogo\teste_jogo\Principal.cpp(8,12): message : Não há contexto no qual esta conversão seja possível
+C:\joao\utfpr\quarto_periodo\tec_prog\provas\teste_jogo\teste_jogo\Personagem.h(14,2): message : consulte a declaração de 'Personagem::Personagem'
+  Gerando Código...
