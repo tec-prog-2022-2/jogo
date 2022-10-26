@@ -1,5 +1,5 @@
 template<class TL>
-class lista::Lista<TL>::Iterador
+class Listas::Lista<TL>::Iterador
 {
 private:
 	Lista<TL>::Elemento<TL>* elemento;
@@ -12,7 +12,7 @@ public:
 	void operator=(Lista<TL>::Elemento<TL>* elemento_input);
 	bool operator!=(Lista<TL>::Elemento<TL>* elemento_input) const;
 	bool operator==(Lista<TL>::Elemento<TL>* elemento_input) const;
-	TL* operator*() const;
+	TL* operator*() const; //pega a informação que elemento possui
 };
 
 #include"IteradorImplementacao.h"

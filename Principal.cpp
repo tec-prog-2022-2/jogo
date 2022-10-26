@@ -6,8 +6,8 @@ Principal::Principal():
 
 	//inicializando o personagem na posição (0, 0)
 	//passamos também o caminho para o arquivo png que será usado como textura
-	p1{ sf::Vector2f(0.0f, 0.0f), sf::Vector2f(0.01f, 0.01f), "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_dev//jogo_dev//Bamboo-Free-PNG.png" },
-	p2{ sf::Vector2f(1.0f, 1.0f), sf::Vector2f(0.02f, 0.0f), "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_dev//jogo_dev//Bamboo-Free-PNG.png" }
+	p1{ sf::Vector2f(0.0f, 0.0f), sf::Vector2f(0.0f, 0.0f), "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_dev//jogo_dev//assets//Bamboo-Free-PNG.png" },
+	p2{ sf::Vector2f(1.0f, 1.0f), sf::Vector2f(0.02f, 0.0f), "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_dev//jogo_dev//assets//Bamboo-Free-PNG.png" }
 {
 	lista_personagens.add_info(&p1);
 	lista_personagens.add_info(&p2);
@@ -33,7 +33,7 @@ void Principal::executar()
 		}
 
 		window.clear(); //limpa a janela
-		lista::Lista<Personagem>::Iterador i;
+		Listas::Lista<Personagem>::Iterador i;
 
 		for (i = lista_personagens.begin(); i != lista_personagens.end(); ++i)
 		{

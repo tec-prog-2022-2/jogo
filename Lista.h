@@ -1,6 +1,6 @@
 #pragma once
 
-namespace lista
+namespace Listas
 {
 	template<class TL>
 	class Lista

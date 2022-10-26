@@ -1,6 +1,6 @@
 #include "Personagem.h"
 
-Personagem::Personagem(sf::Vector2f position_, sf::Vector2f speed, const char* path_to_texture):
+Personagem::Personagem(Vetor2D<float> posicao_input, Vetor2D<float> velocidade_input, const char* path_to_texture):
 	position{position_},
 	speed{speed}
 {

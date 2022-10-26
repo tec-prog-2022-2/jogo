@@ -1,6 +1,6 @@
 template<class TL>
 template<class TE>
-class lista::Lista<TL>::Elemento
+class Listas::Lista<TL>::Elemento
 {
 private:
 	TE* info;

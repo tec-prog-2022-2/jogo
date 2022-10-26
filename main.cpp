@@ -2,6 +2,6 @@
 
 int main()
 {
-    Principal jogo;
+    //Principal jogo;
     return(0);
 }
