@@ -23,6 +23,20 @@ Vetor2D<TV> Vetor2D<TV>::operator-(Vetor2D<TV> vetor_input)
 }
 
 template<class TV>
+void Vetor2D<TV>::operator+=(Vetor2D<TV> vetor_input)
+{
+	x += vetor_input.get_x();
+	y += vetor_input.get_y();
+}
+
+template<class TV>
+void Vetor2D<TV>::operator-=(Vetor2D<TV> vetor_input)
+{
+	x -= vetor_input.get_x();
+	y -= vetor_input.get_y();
+}
+
+template<class TV>
 Vetor2D<TV> Vetor2D<TV>::operator*(int fator)
 {
 	return(Vetor2D<TV>(x * fator, y * fator));

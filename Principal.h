@@ -3,13 +3,14 @@
 #include"stdafx.h"
 #include"Lista.h"
 #include"Personagem.h"
+#include"GerenciadorGrafico.h"
 
 class Principal
 {
 private:
 	Listas::Lista<Personagem> lista_personagens;
-	sf::RenderWindow window; //janela principal do programa
-	Personagem p1; //personagem p1
+	GerenciadorGrafico gerenciador_grafico; 
+	Personagem p1; 
 	Personagem p2;
 
 public:

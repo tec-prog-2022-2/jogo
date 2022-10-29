@@ -1,4 +1,7 @@
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
+*.zip
 X64/
+arquivos_cpp_jogo_imp
+arquivos_h_jogo_imp

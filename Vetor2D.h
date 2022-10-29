@@ -12,6 +12,8 @@ public:
 	~Vetor2D();
 	Vetor2D<TV> operator+(Vetor2D<TV> vetor_input); //soma vetorial
 	Vetor2D<TV> operator-(Vetor2D<TV> vetor_input); //subtração vetorial
+	void operator+=(Vetor2D<TV> vetor_input); 
+	void operator-=(Vetor2D<TV> vetor_input);
 	Vetor2D<TV> operator*(int fator); //produto por escalar
 	Vetor2D<TV> operator*(float fator); //produto por escalar
 	Vetor2D<TV> operator*(double fator); //produto por escalar

@@ -1,29 +1,32 @@
 #include "Personagem.h"
 
-Personagem::Personagem(Vetor2D<float> posicao_input, Vetor2D<float> velocidade_input, const char* path_to_texture):
-	position{position_},
-	speed{speed}
+Personagem::Personagem(Vetor2D<float> posicao_input, Vetor2D<float> velocidade_input, const char* caminho_textura_input):
+	posicao{posicao_input},
+	velocidade{velocidade_input},
+	caminho_textura{caminho_textura_input}
 {
-	if (path_to_texture)
-		texture.loadFromFile(path_to_texture); //adiciona o arquivo png para a textura
-
-	body.setSize(sf::Vector2f(200.0f, 200.0f)); //setando as dimensões do corpo do personagem
-	body.setTexture(&texture); //passamos a textura por referência para o corpo do personagem
 }
 
 Personagem::~Personagem()
 {
 }
 
-void Personagem::atualizar(const float time)
+void Personagem::inicializar(GerenciadorGrafico* gerenciador_grafico_input)
 {
-	position += speed * time;
+	if (gerenciador_grafico_input->carregar_textura(caminho_textura))
+		std::cout << "Textura de personagem inicializada com sucesso!" << std::endl;
 
-	body.setPosition(position);
+	else
+		std::cout << "Textura de personagem nao inicializada com sucesso!" << std::endl;
 }
 
-void Personagem::desenhar(sf::RenderWindow* window)
+void Personagem::atualizar(float tempo_input)
 {
-	window->draw(body); //a window é a janela principal, passada por referência a esta função
-	//basicamente, a função desenha o corpo do personagem na tela
+	posicao += velocidade * tempo_input;
+
+}
+
+void Personagem::desenhar(GerenciadorGrafico* gerenciador_grafico_input)
+{
+	gerenciador_grafico_input->desenhar(caminho_textura, posicao); 
 }
