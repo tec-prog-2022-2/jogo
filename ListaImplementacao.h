@@ -1,5 +1,5 @@
 template<class TL>
-Listas::Lista<TL>::Lista():
+Listas::Lista<TL>::Lista() :
 	primeiro_elemento{ nullptr },
 	ultimo_elemento{ nullptr }
 {
@@ -14,25 +14,25 @@ Listas::Lista<TL>::~Lista()
 }
 
 template<class TL>
-Listas::Lista<TL>::Elemento<TL>* Listas::Lista<TL>::begin() const
+Listas::Lista<TL>::Elemento<TL>* Listas::Lista<TL>::comeco() const
 {
 	return(get_primeiro_elemento());
 }
 
 template<class TL>
-Listas::Lista<TL>::Elemento<TL>* Listas::Lista<TL>::end() const
+Listas::Lista<TL>::Elemento<TL>* Listas::Lista<TL>::fim() const
 {
 	return(get_ultimo_elemento()->get_proximo_elemento());
 }
 
 template<class TL>
-Listas::Lista<TL>::Elemento<TL>* Listas::Lista<TL>::rbegin() const
+Listas::Lista<TL>::Elemento<TL>* Listas::Lista<TL>::rcomeco() const
 {
 	return(get_ultimo_elemento());
 }
 
 template<class TL>
-Listas::Lista<TL>::Elemento<TL>* Listas::Lista<TL>::rend() const
+Listas::Lista<TL>::Elemento<TL>* Listas::Lista<TL>::rfim() const
 {
 	return(get_primeiro_elemento()->get_anterior_elemento());
 }
@@ -50,7 +50,7 @@ Listas::Lista<TL>::Elemento<TL>* Listas::Lista<TL>::get_primeiro_elemento() cons
 }
 
 template<class TL>
-void Listas::Lista<TL>::set_ultimo_elemento(Lista<TL>::Elemento<TL>* elemento_input)
+void Listas::Lista<TL>::set_ultimo_elemento(Listas::Lista<TL>::Elemento<TL>* elemento_input)
 {
 	ultimo_elemento = elemento_input;
 }

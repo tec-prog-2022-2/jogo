@@ -1,7 +1,7 @@
 #include "Principal.h"
 
 Principal::Principal():
-	lista_personagens(),
+	lista_desenhaveis(),
 	gerenciador_grafico(),
 
 	//inicializando o personagem na posição (0, 0)
@@ -9,16 +9,14 @@ Principal::Principal():
 	p1{ Vetor2D<float>(0.0f, 0.0f), Vetor2D<float>(0.01f, 0.01f), "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_dev//jogo_dev//assets//Bamboo-Free-PNG.png" },
 	p2{ Vetor2D<float>(1.0f, 1.0f), Vetor2D<float>(0.02f, 0.0f), "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_dev//jogo_dev//assets//Bamboo-Free-PNG.png" }
 {
-	lista_personagens.add_info(&p1);
-	lista_personagens.add_info(&p2);
-	p1.inicializar(&gerenciador_grafico);
-	p2.inicializar(&gerenciador_grafico);
+	lista_desenhaveis.add_desenhavel(&p1);
+	lista_desenhaveis.add_desenhavel(&p2);
+	lista_desenhaveis.inicializar_desenhaveis(&gerenciador_grafico, &gerenciador_eventos);
 	executar();
 }
 
 Principal::~Principal()
 {
-
 }
 
 void Principal::executar()
@@ -36,13 +34,8 @@ void Principal::executar()
 
 		gerenciador_grafico.limpar();
 		
-		Listas::Lista<Personagem>::Iterador i;
-		for (i = lista_personagens.begin(); i != lista_personagens.end(); ++i)
-		{
-			Personagem* personagem = *i;
-			personagem->atualizar(); //atualiza posicao do personagem
-			personagem->desenhar(&gerenciador_grafico); //e entao desenha o personagem com a nova posicao
-		}
+		lista_desenhaveis.atualizar_desenhaveis();
+		lista_desenhaveis.desenhar_desenhaveis(&gerenciador_grafico);
 
 		gerenciador_grafico.mostrar(); 
 	}

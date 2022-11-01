@@ -2,20 +2,22 @@
 
 #include"stdafx.h"
 #include"Lista.h"
-#include"Personagem.h"
+#include"Desenhavel.h"
 #include"GerenciadorGrafico.h"
+#include"GerenciadorGrafico.h"
+#include"ListaDesenhaveis.h"
 
 class Principal
 {
 private:
-	Listas::Lista<Personagem> lista_personagens;
+	Listas::ListaDesenhaveis lista_desenhaveis;
 	GerenciadorGrafico gerenciador_grafico; 
-	Personagem p1; 
-	Personagem p2;
+	GerenciadorEventos gerenciador_eventos;
+	Desenhavel p1; 
+	Desenhavel p2;
 
 public:
 	Principal();
 	~Principal();
 	void executar();
 };
-

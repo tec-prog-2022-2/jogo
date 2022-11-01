@@ -1,5 +1,7 @@
 #pragma once
 
+#include"stdafx.h"
+
 namespace Listas
 {
 	template<class TL>
@@ -22,10 +24,10 @@ namespace Listas
 	public:
 		Lista();
 		~Lista();
-		Elemento<TL>* begin() const;
-		Elemento<TL>* end() const;
-		Elemento<TL>* rbegin() const;
-		Elemento<TL>* rend() const;
+		Elemento<TL>* comeco() const;
+		Elemento<TL>* fim() const;
+		Elemento<TL>* rcomeco() const;
+		Elemento<TL>* rfim() const;
 		void set_primeiro_elemento(Elemento<TL>* elemento_input);
 		Elemento<TL>* get_primeiro_elemento() const;
 		void set_ultimo_elemento(Elemento<TL>* elemento_input);

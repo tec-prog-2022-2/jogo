@@ -1,17 +1,17 @@
-#include "Personagem.h"
+#include"Desenhavel.h"
 
-Personagem::Personagem(Vetor2D<float> posicao_input, Vetor2D<float> velocidade_input, const char* caminho_textura_input):
+Desenhavel::Desenhavel(Vetor2D<float> posicao_input, Vetor2D<float> velocidade_input, const char* caminho_textura_input):
 	posicao{posicao_input},
 	velocidade{velocidade_input},
 	caminho_textura{caminho_textura_input}
 {
 }
 
-Personagem::~Personagem()
+Desenhavel::~Desenhavel()
 {
 }
 
-void Personagem::inicializar(GerenciadorGrafico* gerenciador_grafico_input)
+void Desenhavel::inicializar(GerenciadorGrafico* gerenciador_grafico_input, GerenciadorEventos* gerenciador_eventos_input)
 {
 	if (gerenciador_grafico_input->carregar_textura(caminho_textura))
 		std::cout << "Textura de personagem inicializada com sucesso!" << std::endl;
@@ -20,13 +20,13 @@ void Personagem::inicializar(GerenciadorGrafico* gerenciador_grafico_input)
 		std::cout << "Textura de personagem nao inicializada com sucesso!" << std::endl;
 }
 
-void Personagem::atualizar(float tempo_input)
+void Desenhavel::atualizar(float tempo_input)
 {
 	posicao += velocidade * tempo_input;
 
 }
 
-void Personagem::desenhar(GerenciadorGrafico* gerenciador_grafico_input)
+void Desenhavel::desenhar(GerenciadorGrafico* gerenciador_grafico_input)
 {
 	gerenciador_grafico_input->desenhar(caminho_textura, posicao); 
 }
