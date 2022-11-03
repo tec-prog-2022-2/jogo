@@ -1,20 +1,18 @@
 #pragma once
 
 #include"stdafx.h"
+#include"Entidade.h"
+#include"Samurai.h"
 #include"Lista.h"
-#include"Desenhavel.h"
 #include"GerenciadorGrafico.h"
-#include"GerenciadorGrafico.h"
-#include"ListaDesenhaveis.h"
+#include"ListaEntidades.h"
 
 class Principal
 {
 private:
-	Listas::ListaDesenhaveis lista_desenhaveis;
-	GerenciadorGrafico gerenciador_grafico; 
-	GerenciadorEventos gerenciador_eventos;
-	Desenhavel p1; 
-	Desenhavel p2;
+	Listas::ListaEntidades lista_entidades;
+	Gerenciadores::GerenciadorGrafico gerenciador_grafico; 
+	Entidades::Samurai p1;
 
 public:
 	Principal();

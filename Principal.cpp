@@ -1,17 +1,11 @@
 #include "Principal.h"
 
 Principal::Principal():
-	lista_desenhaveis(),
+	lista_entidades(),
 	gerenciador_grafico(),
-
-	//inicializando o personagem na posição (0, 0)
-	//passamos também o caminho para o arquivo png que será usado como textura
-	p1{ Vetor2D<float>(0.0f, 0.0f), Vetor2D<float>(0.01f, 0.01f), "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_dev//jogo_dev//assets//Bamboo-Free-PNG.png" },
-	p2{ Vetor2D<float>(1.0f, 1.0f), Vetor2D<float>(0.02f, 0.0f), "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_dev//jogo_dev//assets//Bamboo-Free-PNG.png" }
+	p1{&gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_dev//jogo_dev//assets//Bamboo-Free-PNG.png" , Vetor2D<float>(0,0), 1}
 {
-	lista_desenhaveis.add_desenhavel(&p1);
-	lista_desenhaveis.add_desenhavel(&p2);
-	lista_desenhaveis.inicializar_desenhaveis(&gerenciador_grafico, &gerenciador_eventos);
+	lista_entidades.add_entidade(&p1);
 	executar();
 }
 
@@ -23,20 +17,26 @@ void Principal::executar()
 {
 	while (gerenciador_grafico.get_janela()->isOpen())
 	{
-		// check all the window's events that were triggered since the last iteration of the loop
 		sf::Event event;
 		while (gerenciador_grafico.get_janela()->pollEvent(event))
 		{
-			// "close requested" event: we close the window
+
 			if (event.type == sf::Event::Closed)
 				gerenciador_grafico.get_janela()->close();
 		}
 
 		gerenciador_grafico.limpar();
-		
-		lista_desenhaveis.atualizar_desenhaveis();
-		lista_desenhaveis.desenhar_desenhaveis(&gerenciador_grafico);
-
-		gerenciador_grafico.mostrar(); 
+		lista_entidades.executar_entidades(sf::Clock());
+		lista_entidades.desenhar_entidades();
+		gerenciador_grafico.mostrar();
 	}
 }
+
+//tranfroamar o principal em fase
+//criar classe jogo q agrega fase
+//ente tem o ponteiro para gerenciador grafico
+//jogador que cuida do teclado
+//ter fase rodando com plataformas, inimigos (criados aleatoriamente)
+//com um jogador e colisao
+
+//O lance do clock está na executar da lista e o executar das entidades etc
