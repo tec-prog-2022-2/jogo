@@ -55,19 +55,15 @@ namespace Gerenciadores
 		}
 	}
 
-	void GerenciadorGrafico::desenhar(const std::string caminho_imagem, const Vetor2D<float> posicao)
+	void GerenciadorGrafico::desenhar(const std::string caminho_imagem, const Vetor2D<float> posicao, sf::RectangleShape* corpo_input)
 	{
 		if (carregar_textura(caminho_imagem))
 		{
 			sf::Texture* textura = mapa_texturas[caminho_imagem];
-			sf::Sprite sprite;
-			sprite.setTexture(*textura);
-			sprite.setScale(0.5, 0.5);
-			sprite.setPosition(posicao.get_x(), posicao.get_y());
-			janela->draw(sprite);
-
-			//Dá para fazer uma checagem se o lugar onde vamos desenhar o personagem está dentro dos limites
-			//da câmera
+			sf::RectangleShape* corpo = corpo_input;
+			corpo->setTexture(textura);
+			corpo->setPosition(posicao.get_x(), posicao.get_y());
+			janela->draw(*corpo);
 		}
 
 		else

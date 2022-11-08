@@ -20,14 +20,14 @@ namespace Listas
 			std::cout << "entidade_input era nullptr" << std::endl;
 	}
 
-	void ListaEntidades::executar_entidades(sf::Clock)
+	void ListaEntidades::executar_entidades(sf::Clock relogio)
 	{
 		Listas::Lista<Entidades::Entidade>::Iterador i;
 
 		for (i = lista_entidades.comeco(); i != lista_entidades.fim(); ++i)
 		{
 			Entidades::Entidade* entidade = *i;
-			entidade->executar(sf::Clock());
+			entidade->executar(relogio);
 		}
 	}
 

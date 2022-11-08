@@ -14,6 +14,6 @@ protected:
 public:
 	Ente(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input = nullptr, const char* caminho_textura_input = nullptr);
 	virtual ~Ente();
-	virtual void desenhar() = 0; //é virtual puro para garantir o polimorfismo na hora de desenhar o menu e as entidades
+	virtual void desenhar() = 0; 
 	virtual void executar(sf::Clock) = 0;
 };
