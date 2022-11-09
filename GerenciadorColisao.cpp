@@ -23,13 +23,21 @@ namespace Gerenciadores
 
 	void GerenciadorColisao::executar()
 	{
-		std::list<Obstaculos::Obstaculo*>::const_iterator i;
-		//std::list<Entidades::Obstaculo*>::const_iterator j;
+		std::list<Obstaculos::Obstaculo*>::iterator i;
+		std::vector<Entidades::Personagem*>::const_iterator j;
 
 		for (i = lista_obstaculos->begin(); i != lista_obstaculos->end(); i++)
 		{
 			Obstaculos::Obstaculo* obstaculo = *i;
-			
+			for (j = vetor_personagens->begin(); j != vetor_personagens->end(); j++)
+			{
+				Entidades::Personagem* personagem = *j;
+				Vetor2D<float> ds = calcula_colisao(obstaculo, personagem);
+				if (ds.get_x() < 0 && ds.get_y() < 0)
+				{
+
+				}
+			}
 		}
 	}
 }

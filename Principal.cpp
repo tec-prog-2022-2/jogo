@@ -2,16 +2,14 @@
 
 Principal::Principal():
 	lista_entidades(),
-	vetor_personagens(),
 	lista_obstaculos(),
 	gerenciador_grafico(),
-	gerenciador_colisao{&vetor_personagens, &lista_obstaculos},
-	p1{ &gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_dev//jogo_dev//assets//Bamboo-Free-PNG.png" , Vetor2D<float>(0.0f,0.0f), Vetor2D<float>(0.01f, 0.01f), 1 },
+	//gerenciador_colisao{&vetor_personagens, &lista_obstaculos},
+	p1{ &gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_dev//jogo_dev//assets//Bamboo-Free-PNG.png" , Vetor2D<float>(0.0f,0.0f), Vetor2D<float>(200.0f, 200.0f), ID_SAMURAI, Vetor2D<float>(0.01f, 0.01f), 3},
 	//o1{},
 	relogio()
 {
 	lista_entidades.add_entidade(&p1);
-	vetor_personagens.push_back(static_cast<Entidades::Personagem*>(&p1));
 	executar();
 }
 

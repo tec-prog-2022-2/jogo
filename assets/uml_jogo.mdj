@@ -4111,7 +4111,7 @@
 											"font": "Arial;13;1",
 											"left": 2229,
 											"top": 1742,
-											"width": 1231,
+											"width": 1175,
 											"height": 13,
 											"text": "Personagens"
 										},
@@ -4149,7 +4149,7 @@
 									"font": "Arial;13;0",
 									"left": 2224,
 									"top": 1735,
-									"width": 1241,
+									"width": 1185,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGEGYv0+jVPtr0="
@@ -4187,7 +4187,7 @@
 							"containerChangeable": true,
 							"left": 2224,
 							"top": 1720,
-							"width": 1241,
+							"width": 1185,
 							"height": 561,
 							"nameCompartment": {
 								"$ref": "AAAAAAGEGYv0+jVO70s="
@@ -4491,7 +4491,7 @@
 											"font": "Arial;13;0",
 											"left": 2717,
 											"top": 2013,
-											"width": 719,
+											"width": 663,
 											"height": 13,
 											"text": "«Jogador»"
 										},
@@ -4505,7 +4505,7 @@
 											"font": "Arial;13;1",
 											"left": 2717,
 											"top": 2028,
-											"width": 719,
+											"width": 663,
 											"height": 13,
 											"text": "Samurai"
 										},
@@ -4543,7 +4543,7 @@
 									"font": "Arial;13;0",
 									"left": 2712,
 									"top": 2008,
-									"width": 729,
+									"width": 673,
 									"height": 38,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGEFjOOSf1fZ2U="
@@ -4592,7 +4592,7 @@
 									"font": "Arial;13;0",
 									"left": 2712,
 									"top": 2046,
-									"width": 729,
+									"width": 673,
 									"height": 10
 								},
 								{
@@ -4618,7 +4618,7 @@
 											"font": "Arial;13;0",
 											"left": 2717,
 											"top": 2061,
-											"width": 719,
+											"width": 663,
 											"height": 39,
 											"text": "«create»+Samurai(gerenciador_grafico_input: GerenciadorGrafico*, caminho_textura_input: const char* = nullptr, posicao_input: Vetor2D<float> = Vetor2D<float>(0, 0), velocidade_input: Vetor2D<float> = Vetor2D<float>(0.1, 0.1), vidas_input: int = -1)",
 											"horizontalAlignment": 0,
@@ -4637,7 +4637,7 @@
 											"font": "Arial;13;0",
 											"left": 2717,
 											"top": 2102,
-											"width": 719,
+											"width": 663,
 											"height": 13,
 											"text": "«destroy»~Samurai()",
 											"horizontalAlignment": 0
@@ -4674,9 +4674,27 @@
 											"font": "Arial;13;0",
 											"left": 2717,
 											"top": 2117,
-											"width": 719,
+											"width": 663,
 											"height": 13,
 											"text": "+executar(relogio: Clock): void",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGEV/iANKIeJJM=",
+											"_parent": {
+												"$ref": "AAAAAAGEFjOOSf1kSl8="
+											},
+											"model": {
+												"$ref": "AAAAAAGEV/iAG6IMYmg="
+											},
+											"fillColor": "#00d600",
+											"font": "Arial;13;0",
+											"left": 2717,
+											"top": 2132,
+											"width": 663,
+											"height": 13,
+											"text": "+colisao(entidade_colidida: Entidade*, ds: Vetor2D<float> = Vetor2D<float>(0.0f, 0.0f)): void",
 											"horizontalAlignment": 0
 										}
 									],
@@ -4684,8 +4702,8 @@
 									"font": "Arial;13;0",
 									"left": 2712,
 									"top": 2056,
-									"width": 729,
-									"height": 79
+									"width": 673,
+									"height": 94
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -4730,8 +4748,8 @@
 							"containerChangeable": true,
 							"left": 2712,
 							"top": 2008,
-							"width": 729,
-							"height": 127,
+							"width": 673,
+							"height": 142,
 							"nameCompartment": {
 								"$ref": "AAAAAAGEFjOOSf1eR9w="
 							},
@@ -4994,6 +5012,7 @@
 											"model": {
 												"$ref": "AAAAAAGEVEKnxKvYNjg="
 											},
+											"visible": false,
 											"fillColor": "#ff00ff",
 											"font": "Arial;13;0",
 											"left": 1445,
@@ -5015,10 +5034,28 @@
 											"fillColor": "#ff00ff",
 											"font": "Arial;13;0",
 											"left": 1445,
-											"top": 815,
+											"top": 800,
 											"width": 251.4814453125,
 											"height": 13,
 											"text": "-vetor_obstaculos:vector<Obstaculo*>",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGEWCVeDP2/uhY=",
+											"_parent": {
+												"$ref": "AAAAAAGEGZxESIFBr9Q="
+											},
+											"model": {
+												"$ref": "AAAAAAGEWCVd4P2tr1I="
+											},
+											"fillColor": "#ff00ff",
+											"font": "Arial;13;0",
+											"left": 1445,
+											"top": 815,
+											"width": 251.4814453125,
+											"height": 13,
+											"text": "-lista_inimigos: list<Inimigo*>",
 											"horizontalAlignment": 0
 										}
 									],
@@ -7162,6 +7199,24 @@
 											"height": 13,
 											"text": "#corpo: RectangleShape",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGEV/sM07b4pB0=",
+											"_parent": {
+												"$ref": "AAAAAAGEFi7LH6kHkA4="
+											},
+											"model": {
+												"$ref": "AAAAAAGEV/sMtLbdIXI="
+											},
+											"fillColor": "#00ff00",
+											"font": "Arial;13;0",
+											"left": 2277,
+											"top": 1555,
+											"width": 647,
+											"height": 13,
+											"text": "#tipo_entidade: int",
+											"horizontalAlignment": 0
 										}
 									],
 									"fillColor": "#00ff00",
@@ -7169,7 +7224,7 @@
 									"left": 2272,
 									"top": 1518,
 									"width": 657,
-									"height": 40
+									"height": 55
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -7193,7 +7248,7 @@
 											"fillColor": "#00ff00",
 											"font": "Arial;13;0",
 											"left": 2277,
-											"top": 1563,
+											"top": 1578,
 											"width": 647,
 											"height": 39,
 											"text": "«create»+Entidade(gerenciador_grafico_input: GerenciadorGrafico*, caminho_textura_input: const char* = nullptr, posicao_input: Vetor2D<float> = Vetor2D<float>(0, 0), tamanho_corpo: Vetor2D<float> = Vetor2D<float>(200.0, 200.0))",
@@ -7212,7 +7267,7 @@
 											"fillColor": "#00ff00",
 											"font": "Arial;13;0",
 											"left": 2277,
-											"top": 1604,
+											"top": 1619,
 											"width": 647,
 											"height": 13,
 											"text": "«destroy»+virtual Entidade()",
@@ -7269,7 +7324,7 @@
 											"fillColor": "#00ff00",
 											"font": "Arial;13;0",
 											"left": 2277,
-											"top": 1619,
+											"top": 1634,
 											"width": 647,
 											"height": 13,
 											"text": "+desenhar(): void",
@@ -7287,7 +7342,7 @@
 											"fillColor": "#00ff00",
 											"font": "Arial;13;0",
 											"left": 2277,
-											"top": 1634,
+											"top": 1649,
 											"width": 647,
 											"height": 13,
 											"text": "+get_posicao(): const Vetor2D<float>",
@@ -7305,7 +7360,7 @@
 											"fillColor": "#00ff00",
 											"font": "Arial;13;0",
 											"left": 2277,
-											"top": 1649,
+											"top": 1664,
 											"width": 647,
 											"height": 13,
 											"text": "+get_corpo(): const RectangleShape",
@@ -7323,7 +7378,7 @@
 											"fillColor": "#00ff00",
 											"font": "Arial;13;2",
 											"left": 2277,
-											"top": 1664,
+											"top": 1679,
 											"width": 647,
 											"height": 13,
 											"text": "+executar(relogio: Clock): virtual void",
@@ -7366,12 +7421,50 @@
 											"height": 13,
 											"text": "+tratar_evento(evento: Event): virtual void",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGEV/MFbXSmyK0=",
+											"_parent": {
+												"$ref": "AAAAAAGEFi7LH6kI+V0="
+											},
+											"model": {
+												"$ref": "AAAAAAGEV/MFSHSLlZU="
+											},
+											"visible": false,
+											"fillColor": "#00ff00",
+											"font": "Arial;13;2",
+											"left": 2277,
+											"top": 1694,
+											"width": 647,
+											"height": 13,
+											"text": "+colisao(entidade_colidida: Entidade*, ds: Vetor2D<float> = Vetor2D<float>(0.0f, 0.0f)): virtual void",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGEV/OXt3n9iz0=",
+											"_parent": {
+												"$ref": "AAAAAAGEFi7LH6kI+V0="
+											},
+											"model": {
+												"$ref": "AAAAAAGEV/OXmXniECU="
+											},
+											"visible": false,
+											"fillColor": "#00ff00",
+											"font": "Arial;13;0",
+											"left": 2277,
+											"top": 1694,
+											"width": 647,
+											"height": 13,
+											"text": "+Operation1()",
+											"horizontalAlignment": 0
 										}
 									],
 									"fillColor": "#00ff00",
 									"font": "Arial;13;0",
 									"left": 2272,
-									"top": 1558,
+									"top": 1573,
 									"width": 657,
 									"height": 124
 								},
@@ -7419,7 +7512,7 @@
 							"left": 2272,
 							"top": 1480,
 							"width": 657,
-							"height": 202,
+							"height": 232,
 							"nameCompartment": {
 								"$ref": "AAAAAAGEFi7LHqkCyxs="
 							},
@@ -7690,6 +7783,24 @@
 											"height": 13,
 											"text": "+executar(relogio: Clock): virtual void",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGEV/Lje3EET3A=",
+											"_parent": {
+												"$ref": "AAAAAAGEOQ8ZPzlBfXA="
+											},
+											"model": {
+												"$ref": "AAAAAAGEV/LjU3DpcxU="
+											},
+											"fillColor": "#00ff00",
+											"font": "Arial;13;2",
+											"left": 2541,
+											"top": 1936,
+											"width": 575,
+											"height": 13,
+											"text": "+colisao(entidade_colidida: Entidade*, ds: Vetor2D<float> = Vetor2D<float>(0.0f, 0.0f)): virtual void",
+											"horizontalAlignment": 0
 										}
 									],
 									"fillColor": "#00ff00",
@@ -7697,7 +7808,7 @@
 									"left": 2536,
 									"top": 1860,
 									"width": 585,
-									"height": 79
+									"height": 94
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -7743,7 +7854,7 @@
 							"left": 2536,
 							"top": 1784,
 							"width": 585,
-							"height": 155,
+							"height": 170,
 							"nameCompartment": {
 								"$ref": "AAAAAAGEOQ8ZPzk78hg="
 							},
@@ -7783,7 +7894,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 2641,
-									"top": 1725,
+									"top": 1740,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -7804,7 +7915,7 @@
 									"visible": null,
 									"font": "Arial;13;0",
 									"left": 2626,
-									"top": 1725,
+									"top": 1740,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -7825,7 +7936,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 2670,
-									"top": 1726,
+									"top": 1741,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -7842,7 +7953,7 @@
 							"tail": {
 								"$ref": "AAAAAAGEOQ8ZPzk6UzA="
 							},
-							"points": "2656:1784;2656:1681",
+							"points": "2656:1784;2656:1711",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGEOQ9eU0pH088="
@@ -7876,7 +7987,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 2993,
-									"top": 1966,
+									"top": 1973,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -7897,7 +8008,7 @@
 									"visible": null,
 									"font": "Arial;13;0",
 									"left": 2978,
-									"top": 1966,
+									"top": 1973,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -7918,7 +8029,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 3022,
-									"top": 1967,
+									"top": 1974,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -7935,7 +8046,7 @@
 							"tail": {
 								"$ref": "AAAAAAGEFjOOSf1dKBs="
 							},
-							"points": "3008:2008;3008:1938",
+							"points": "3008:2008;3008:1953",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGEORAyZWPzoTo="
@@ -7968,8 +8079,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 2585,
-									"top": 1970,
+									"left": 2577,
+									"top": 1977,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -7989,8 +8100,8 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 2570,
-									"top": 1970,
+									"left": 2562,
+									"top": 1977,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -8010,8 +8121,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 2614,
-									"top": 1971,
+									"left": 2606,
+									"top": 1978,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -8028,7 +8139,7 @@
 							"tail": {
 								"$ref": "AAAAAAGEGS3tw0aNIKg="
 							},
-							"points": "2600:2016;2600:1938",
+							"points": "2592:2016;2592:1953",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGEORChgoMfbhw="
@@ -9089,6 +9200,24 @@
 										},
 										{
 											"_type": "UMLOperationView",
+											"_id": "AAAAAAGEWCEL2dKlTyY=",
+											"_parent": {
+												"$ref": "AAAAAAGEPdqBvIhwwu4="
+											},
+											"model": {
+												"$ref": "AAAAAAGEWCELsNKHbyI="
+											},
+											"fillColor": "#ffff00",
+											"font": "Arial;13;0",
+											"left": 1709,
+											"top": 1974,
+											"width": 447,
+											"height": 13,
+											"text": "+colisao_obstaculo(entidade_colidida: Entidade*, ds: Vetor2D<float>): void",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
 											"_id": "AAAAAAGEVRQesmPXwmU=",
 											"_parent": {
 												"$ref": "AAAAAAGEPdqBvIhwwu4="
@@ -9099,10 +9228,29 @@
 											"fillColor": "#ffff00",
 											"font": "Arial;13;2",
 											"left": 1709,
-											"top": 1974,
+											"top": 1989,
 											"width": 447,
 											"height": 13,
-											"text": "+executar(relogio: Clock): void",
+											"text": "+executar(relogio: Clock): virtual void",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGEWB7qeMjNWHM=",
+											"_parent": {
+												"$ref": "AAAAAAGEPdqBvIhwwu4="
+											},
+											"model": {
+												"$ref": "AAAAAAGEWB7qP8ivUro="
+											},
+											"visible": false,
+											"fillColor": "#ffff00",
+											"font": "Arial;13;0",
+											"left": 1709,
+											"top": 1989,
+											"width": 447,
+											"height": 13,
+											"text": "+colisao(entidade_colidida: Entidade*, ds: Vetor2D<float>)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -9111,7 +9259,7 @@
 									"left": 1704,
 									"top": 1887,
 									"width": 457,
-									"height": 105
+									"height": 120
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -9157,7 +9305,7 @@
 							"left": 1704,
 							"top": 1824,
 							"width": 457,
-							"height": 168,
+							"height": 183,
 							"nameCompartment": {
 								"$ref": "AAAAAAGEPdqBvIhqJRA="
 							},
@@ -9384,7 +9532,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1864,
+									"left": 1992,
 									"top": 1579,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -9405,7 +9553,7 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 1864,
+									"left": 1992,
 									"top": 1564,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -9426,7 +9574,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1864,
+									"left": 1992,
 									"top": 1609,
 									"height": 13,
 									"alpha": -1.5707963267948966,
@@ -9444,7 +9592,7 @@
 							"tail": {
 								"$ref": "AAAAAAGEPdqBvIhpIDI="
 							},
-							"points": "1864:1824;1864:1600;2272:1600",
+							"points": "1992:1824;1992:1600;2272:1600",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGEPdsAMpra+PY="
@@ -9478,7 +9626,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 1777,
-									"top": 2024,
+									"top": 2032,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -9499,7 +9647,7 @@
 									"visible": null,
 									"font": "Arial;13;0",
 									"left": 1762,
-									"top": 2024,
+									"top": 2032,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -9520,7 +9668,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 1806,
-									"top": 2025,
+									"top": 2033,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -9537,7 +9685,7 @@
 							"tail": {
 								"$ref": "AAAAAAGEPdgYr0jMs3s="
 							},
-							"points": "1792:2072;1792:1991",
+							"points": "1792:2072;1792:2006",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGEPdtWZK7IFnc="
@@ -9690,7 +9838,7 @@
 											"top": 757,
 											"width": 527,
 											"height": 13,
-											"text": "-vetor_personagens: vector<Personagem*>",
+											"text": "-vetor_personagens: vector<Inimigo*>",
 											"horizontalAlignment": 0
 										},
 										{
@@ -12580,6 +12728,16 @@
 									"name": "corpo",
 									"visibility": "protected",
 									"type": "RectangleShape"
+								},
+								{
+									"_type": "UMLAttribute",
+									"_id": "AAAAAAGEV/sMtLbdIXI=",
+									"_parent": {
+										"$ref": "AAAAAAGEFi7LHaj/nKk="
+									},
+									"name": "tipo_entidade",
+									"visibility": "protected",
+									"type": "int"
 								}
 							],
 							"operations": [
@@ -12828,6 +12986,53 @@
 											"direction": "return"
 										}
 									]
+								},
+								{
+									"_type": "UMLOperation",
+									"_id": "AAAAAAGEV/MFSHSLlZU=",
+									"_parent": {
+										"$ref": "AAAAAAGEFi7LHaj/nKk="
+									},
+									"name": "colisao",
+									"parameters": [
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAGEV/N0rHW7Cws=",
+											"_parent": {
+												"$ref": "AAAAAAGEV/MFSHSLlZU="
+											},
+											"name": "entidade_colidida",
+											"type": "Entidade*"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAGEV/N0rXW8E4s=",
+											"_parent": {
+												"$ref": "AAAAAAGEV/MFSHSLlZU="
+											},
+											"name": "ds",
+											"type": "Vetor2D<float>",
+											"defaultValue": "Vetor2D<float>(0.0f, 0.0f)"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAGEV/N0rXW99yU=",
+											"_parent": {
+												"$ref": "AAAAAAGEV/MFSHSLlZU="
+											},
+											"type": "virtual void",
+											"direction": "return"
+										}
+									],
+									"isAbstract": true
+								},
+								{
+									"_type": "UMLOperation",
+									"_id": "AAAAAAGEV/OXmXniECU=",
+									"_parent": {
+										"$ref": "AAAAAAGEFi7LHaj/nKk="
+									},
+									"name": "Operation1"
 								}
 							]
 						},
@@ -13385,6 +13590,44 @@
 													"type": "Clock"
 												}
 											]
+										},
+										{
+											"_type": "UMLOperation",
+											"_id": "AAAAAAGEV/iAG6IMYmg=",
+											"_parent": {
+												"$ref": "AAAAAAGEFjOOSf1bGA4="
+											},
+											"name": "colisao",
+											"parameters": [
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAGEV/iSz6M8Lis=",
+													"_parent": {
+														"$ref": "AAAAAAGEV/iAG6IMYmg="
+													},
+													"name": "entidade_colidida",
+													"type": "Entidade*"
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAGEV/iS0KM9T8E=",
+													"_parent": {
+														"$ref": "AAAAAAGEV/iAG6IMYmg="
+													},
+													"name": "ds",
+													"type": "Vetor2D<float>",
+													"defaultValue": "Vetor2D<float>(0.0f, 0.0f)"
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAGEV/iS0KM+4Uk=",
+													"_parent": {
+														"$ref": "AAAAAAGEV/iAG6IMYmg="
+													},
+													"type": "void",
+													"direction": "return"
+												}
+											]
 										}
 									]
 								},
@@ -13569,6 +13812,45 @@
 													},
 													"name": "relogio",
 													"type": "Clock"
+												}
+											],
+											"isAbstract": true
+										},
+										{
+											"_type": "UMLOperation",
+											"_id": "AAAAAAGEV/LjU3DpcxU=",
+											"_parent": {
+												"$ref": "AAAAAAGEOQ8ZPzk42vU="
+											},
+											"name": "colisao",
+											"parameters": [
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAGEV/f3MZv2KOg=",
+													"_parent": {
+														"$ref": "AAAAAAGEV/LjU3DpcxU="
+													},
+													"name": "entidade_colidida",
+													"type": "Entidade*"
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAGEV/f3Mpv3m6E=",
+													"_parent": {
+														"$ref": "AAAAAAGEV/LjU3DpcxU="
+													},
+													"name": "ds",
+													"type": "Vetor2D<float>",
+													"defaultValue": "Vetor2D<float>(0.0f, 0.0f)"
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAGEV/f3M5v4ZUQ=",
+													"_parent": {
+														"$ref": "AAAAAAGEV/LjU3DpcxU="
+													},
+													"type": "virtual void",
+													"direction": "return"
 												}
 											],
 											"isAbstract": true
@@ -13782,6 +14064,43 @@
 										},
 										{
 											"_type": "UMLOperation",
+											"_id": "AAAAAAGEWCELsNKHbyI=",
+											"_parent": {
+												"$ref": "AAAAAAGEPdqBvIhnyl8="
+											},
+											"name": "colisao_obstaculo",
+											"parameters": [
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAGEWCHuUtO3UGc=",
+													"_parent": {
+														"$ref": "AAAAAAGEWCELsNKHbyI="
+													},
+													"name": "entidade_colidida",
+													"type": "Entidade*"
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAGEWCHuU9O4fXM=",
+													"_parent": {
+														"$ref": "AAAAAAGEWCELsNKHbyI="
+													},
+													"name": "ds",
+													"type": "Vetor2D<float>"
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAGEWCHuU9O5SBo=",
+													"_parent": {
+														"$ref": "AAAAAAGEWCELsNKHbyI="
+													},
+													"type": "void",
+													"direction": "return"
+												}
+											]
+										},
+										{
+											"_type": "UMLOperation",
 											"_id": "AAAAAAGEVRQejmO5jbY=",
 											"_parent": {
 												"$ref": "AAAAAAGEPdqBvIhnyl8="
@@ -13803,11 +14122,39 @@
 													"_parent": {
 														"$ref": "AAAAAAGEVRQejmO5jbY="
 													},
-													"type": "void",
+													"type": "virtual void",
 													"direction": "return"
 												}
 											],
 											"isAbstract": true
+										},
+										{
+											"_type": "UMLOperation",
+											"_id": "AAAAAAGEWB7qP8ivUro=",
+											"_parent": {
+												"$ref": "AAAAAAGEPdqBvIhnyl8="
+											},
+											"name": "colisao",
+											"parameters": [
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAGEWB+ksMnfJKM=",
+													"_parent": {
+														"$ref": "AAAAAAGEWB7qP8ivUro="
+													},
+													"name": "entidade_colidida",
+													"type": "Entidade*"
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAGEWB+ksMngHIs=",
+													"_parent": {
+														"$ref": "AAAAAAGEWB7qP8ivUro="
+													},
+													"name": "ds",
+													"type": "Vetor2D<float>"
+												}
+											]
 										}
 									]
 								},
@@ -14588,7 +14935,7 @@
 									},
 									"name": "vetor_personagens",
 									"visibility": "private",
-									"type": "vector<Personagem*>"
+									"type": "vector<Inimigo*>"
 								},
 								{
 									"_type": "UMLAttribute",
@@ -15041,6 +15388,16 @@
 							"name": "vetor_obstaculos:vector<Obstaculo*>",
 							"visibility": "private",
 							"type": ""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGEWCVd4P2tr1I=",
+							"_parent": {
+								"$ref": "AAAAAAGEGZxER4E5C20="
+							},
+							"name": "lista_inimigos",
+							"visibility": "private",
+							"type": "list<Inimigo*>"
 						}
 					],
 					"operations": [
