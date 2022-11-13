@@ -23,6 +23,8 @@ public:
 	TV operator*(Vetor2D<TV> vetor_input); //produto interno
 	double get_module();
 	Vetor2D<TV> get_versor();
+	void set_x(const TV x_input);
+	void set_y(const TV y_input);
 	TV get_x() const;
 	TV get_y() const;
 };

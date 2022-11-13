@@ -30,7 +30,7 @@ namespace Entidades
 		return(posicao);
 	}
 
-	const sf::RectangleShape Entidade::get_corpo() const
+	sf::RectangleShape Entidade::get_corpo()
 	{
 		return(corpo);
 	}

@@ -3,6 +3,8 @@
 #include"stdafx.h"
 #include"Ente.h"
 
+#define ID_SAMURAI 1
+
 namespace Entidades
 {
 	class Entidade :public Ente
@@ -18,9 +20,8 @@ namespace Entidades
 		void desenhar();
 		void set_posicao(Vetor2D<float> posicao_input);
 		const Vetor2D<float> get_posicao() const;
-		const sf::RectangleShape get_corpo() const;
+		sf::RectangleShape get_corpo();
 		const int get_tipo_entidade() const;
 		virtual void executar(sf::Clock) = 0;
-		virtual void colisao(Entidades::Entidade* entidade_colidida, Vetor2D<float> ds = Vetor2D<float>(0.0f, 0.0f)) = 0;
 	};
 }

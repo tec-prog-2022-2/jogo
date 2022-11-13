@@ -12,4 +12,14 @@ namespace Entidades
 	Personagem::~Personagem()
 	{
 	}
+
+	void Personagem::set_vidas(const int vidas_input)
+	{
+		vidas = vidas_input;
+	}
+
+	const int Personagem::get_vidas() const
+	{
+		return(vidas);
+	}
 }

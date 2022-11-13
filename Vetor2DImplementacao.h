@@ -91,6 +91,18 @@ Vetor2D<TV> Vetor2D<TV>::get_versor()
 }
 
 template<class TV>
+void Vetor2D<TV>::set_x(const TV x_input) 
+{
+	x = x_input;
+}
+
+template<class TV>
+void Vetor2D<TV>::set_y(const TV y_input) 
+{
+	y = y_input;
+}
+
+template<class TV>
 TV Vetor2D<TV>::get_x() const
 {
 	return(x);

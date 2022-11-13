@@ -6,3 +6,4 @@
 #include<SFML/Graphics.hpp>
 #include<vector>
 #include<list>
+#include <cstdlib>
