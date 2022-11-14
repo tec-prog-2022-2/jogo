@@ -15,5 +15,5 @@ public:
 	Ente(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input = nullptr, const char* caminho_textura_input = nullptr);
 	virtual ~Ente();
 	virtual void desenhar() = 0; 
-	virtual void executar(sf::Clock) = 0;
+	virtual void executar(float delta_t) = 0;
 };

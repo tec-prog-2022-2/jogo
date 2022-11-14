@@ -7,7 +7,7 @@ namespace Obstaculos
 		movimenta{movimenta_input},
 		velocidade_movimento{Vetor2D<float>(0.0f, 0.0f)}
 	{
-		srand(time(nullptr));
+		srand(static_cast<unsigned int>(time(nullptr)));
 
 		if (1 + rand() % 100 >= 75)
 		{
@@ -21,7 +21,7 @@ namespace Obstaculos
 
 	}
 
-	void Plataforma::executar(sf::Clock relogio)
+	void Plataforma::executar(float delta_t)
 	{
 		
 	}

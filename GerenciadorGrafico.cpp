@@ -62,6 +62,7 @@ namespace Gerenciadores
 			sf::Texture* textura = mapa_texturas[caminho_imagem];
 			sf::RectangleShape* corpo = corpo_input;
 			corpo->setTexture(textura);
+			corpo->setOrigin(corpo->getSize() / 2.0f);
 			corpo->setPosition(posicao.get_x(), posicao.get_y());
 			janela->draw(*corpo);
 		}

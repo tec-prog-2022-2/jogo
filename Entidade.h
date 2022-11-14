@@ -22,6 +22,6 @@ namespace Entidades
 		const Vetor2D<float> get_posicao() const;
 		sf::RectangleShape get_corpo();
 		const int get_tipo_entidade() const;
-		virtual void executar(sf::Clock) = 0;
+		virtual void executar(float delta_t) = 0;
 	};
 }

@@ -14,7 +14,7 @@ namespace Listas
 		ListaEntidades();
 		~ListaEntidades();
 		void add_entidade(Entidades::Entidade* entidade_input);
-		void executar_entidades(sf::Clock);
+		void executar_entidades(float delta_t);
 		void desenhar_entidades();
 	};
 }

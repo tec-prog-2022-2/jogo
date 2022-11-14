@@ -2,9 +2,9 @@
 
 #include"Entidade.h"
 
-namespace Entidades
+namespace Personagens
 {
-	class Personagem : public Entidade
+	class Personagem : public Entidades::Entidade
 	{
 	protected:
 		Vetor2D<float> velocidade;
@@ -15,6 +15,8 @@ namespace Entidades
 		virtual ~Personagem();
 		void set_vidas(const int vidas_input);
 		const int get_vidas() const;
-		virtual void executar(sf::Clock) = 0;
+		void set_velocidade(const Vetor2D<float> velocidade_input);
+		const Vetor2D<float> get_velocidade() const;
+		virtual void executar(float delta_t) = 0;
 	};
 }
