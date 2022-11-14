@@ -82,14 +82,12 @@ namespace Gerenciadores
 			if (deslocamento.get_x() < inimigo->get_posicao().get_x())
 			{
 				deslocamento.set_x(deslocamento.get_x() + ds.get_x());
-				samurai->set_velocidade(Vetor2D<float>(samurai->get_velocidade().get_x() - 100000.0f, samurai->get_velocidade().get_y()));
 			}
 
 			//O samurai está a direita do obstáculo
 			else
 			{
 				deslocamento.set_x(deslocamento.get_x() - ds.get_x());
-				samurai->set_velocidade(Vetor2D<float>(samurai->get_velocidade().get_x() - 100000.0f, samurai->get_velocidade().get_y()));
 			}
 
 			samurai->set_velocidade(Vetor2D<float>(0.0f, samurai->get_velocidade().get_y()));
@@ -102,13 +100,14 @@ namespace Gerenciadores
 			//O samurai está acima do inimigo
 			if (samurai->get_posicao().get_y() < inimigo->get_posicao().get_y())
 			{
-				deslocamento.set_y(deslocamento.get_y() + ds.get_y()-1.0f);
+				deslocamento.set_y(deslocamento.get_y() + ds.get_y());
+				samurai->set_pode_pular(true);
 			}
 
 			//O samurai está abaixo do inimigo
 			else
 			{
-				deslocamento.set_y(deslocamento.get_y() - ds.get_y()+1.0f);
+				deslocamento.set_y(deslocamento.get_y() - ds.get_y());
 			}
 
 			samurai->set_velocidade(Vetor2D<float>(samurai->get_velocidade().get_x(), 0.0f));

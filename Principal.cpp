@@ -4,7 +4,7 @@ Principal::Principal() :
 	lista_entidades(),
 	lista_obstaculos(),
 	gerenciador_grafico(),
-	p1{ &gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//Bamboo-Free-PNG.png" , Vetor2D<float>(100.0f,0.0f), Vetor2D<float>(200.0f, 170.0f), ID_SAMURAI, Vetor2D<float>(0.0f, 0.0f), 100 },
+	p1{ &gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//Bamboo-Free-PNG.png" , Vetor2D<float>(200.0f,0.0f), Vetor2D<float>(200.0f, 170.0f), ID_SAMURAI, Vetor2D<float>(0.0f, 0.0f), 100 },
 	i1{ &gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//Bamboo-Free-PNG.png" , Vetor2D<float>(100.0f,0.0f), Vetor2D<float>(200.0f, 170.0f), 0, Vetor2D<float>(0.0f, 0.0f), 10, 10, &p1},
 	gerenciador_colisao{&p1, &vetor_personagens, &lista_obstaculos },
 	plataforma_1{ &gerenciador_grafico,"C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//plataforma.png", Vetor2D<float>(200.0f, 600.0f), Vetor2D<float>(2000.0f, 200.0f)},
