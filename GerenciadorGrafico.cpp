@@ -5,7 +5,8 @@ namespace Gerenciadores
 	GerenciadorGrafico::GerenciadorGrafico(Vetor2D<float> tamanho_janela, Vetor2D<float> posicao_camera) :
 		janela{ nullptr },
 		camera(sf::Vector2f(posicao_camera.get_x(), posicao_camera.get_y()), sf::Vector2f(tamanho_janela.get_x(), tamanho_janela.get_y())),
-		mapa_texturas()
+		mapa_texturas(),
+		altura_camera{512.0f}
 	{
 		janela = new sf::RenderWindow(sf::VideoMode(static_cast<unsigned int>(tamanho_janela.get_x()), static_cast<unsigned int>(tamanho_janela.get_y())), "janela_do_joao");
 		janela->setView(camera);
@@ -73,11 +74,22 @@ namespace Gerenciadores
 
 	void GerenciadorGrafico::centralizar(Vetor2D<float> posicao)
 	{
-		camera.setCenter(posicao.get_x(), posicao.get_y());
+		camera.setCenter(sf::Vector2f(posicao.get_x(), posicao.get_y()));
 	}
 
 	sf::RenderWindow* GerenciadorGrafico::get_janela() const
 	{
 		return(janela);
+	}
+
+	void GerenciadorGrafico::set_camera()
+	{
+		janela->setView(camera);
+	}
+
+	void GerenciadorGrafico::reajustar_camera()
+	{
+		float razao_tela = (static_cast<float>(janela->getSize().x)) / (static_cast<float>(janela->getSize().y));
+		camera.setSize(altura_camera * razao_tela, altura_camera);
 	}
 }

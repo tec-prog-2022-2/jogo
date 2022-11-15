@@ -11,9 +11,10 @@ namespace Gerenciadores
 		sf::RenderWindow* janela;
 		sf::View camera;
 		std::map<const std::string, sf::Texture*> mapa_texturas;
+		float altura_camera;
 
 	public:
-		GerenciadorGrafico(Vetor2D<float> tamanho_janela = Vetor2D<float>(800, 600), Vetor2D<float> posicao_camera = Vetor2D<float>(400, 300));
+		GerenciadorGrafico(Vetor2D<float> tamanho_janela = Vetor2D<float>(1024, 600), Vetor2D<float> posicao_camera = Vetor2D<float>(400, 300));
 		~GerenciadorGrafico();
 		void mostrar() const;
 		void limpar(int r = 0, int g = 0, int b = 0);
@@ -21,5 +22,7 @@ namespace Gerenciadores
 		void desenhar(const std::string caminho_imagem, const Vetor2D<float> posicao, sf::RectangleShape* corpo_input);
 		void centralizar(Vetor2D<float> posicao);
 		sf::RenderWindow* get_janela() const;
+		void set_camera();
+		void reajustar_camera();
 	};
 }

@@ -5,14 +5,32 @@ namespace Gerenciadores
 	GerenciadorColisao::GerenciadorColisao(Personagens::Samurai* samurai_input, std::vector<Personagens::Personagem*>* vetor_personagens_input, std::list<Obstaculos::Obstaculo*>* lista_obstaculos_input) :
 		samurai{samurai_input},
 		vetor_personagens{ vetor_personagens_input },
-		lista_obstaculos{ lista_obstaculos_input }
+		lista_obstaculos{ lista_obstaculos_input },
+		lista_shurikens{}
 	{
 	}
 
 	GerenciadorColisao::~GerenciadorColisao()
 	{
+		lista_shurikens.clear();
 		vetor_personagens = nullptr;
 		lista_obstaculos = nullptr;
+	}
+
+	void GerenciadorColisao::inicializar_lista_shurikens()
+	{
+		std::vector<Personagens::Personagem*>::const_iterator a = vetor_personagens->begin();
+		for (a = vetor_personagens->begin(); a != vetor_personagens->end(); a++)
+		{
+			Personagens::Personagem* personagem = *a;
+			std::cout << "pao";
+			if (personagem->get_tipo_entidade() == ID_KAMIKAZE)
+			{
+				Personagens::Kamikaze* kamikaze = static_cast<Personagens::Kamikaze*>(personagem);
+				lista_shurikens.push_back(kamikaze->get_shuriken());
+				std::cout << "pao";
+			}
+		}
 	}
 
 	Vetor2D<float> GerenciadorColisao::calcula_colisao(Entidades::Entidade* entidade_1, Entidades::Entidade* entidade_2)
@@ -32,12 +50,18 @@ namespace Gerenciadores
 			//O personagem está a esquerda do obstáculo 
 			if (deslocamento.get_x() < obstaculo->get_posicao().get_x())
 			{
+				if (personagem->get_tipo_entidade() == ID_SAMURAI && obstaculo->get_tipo_entidade() == ID_ESPINHO)
+					samurai->set_colisao_esq_espinho(true);
+
 				deslocamento.set_x(deslocamento.get_x() + ds.get_x());
 			}
 
 			//O personagem está a direita do obstáculo
 			else
 			{
+				if (personagem->get_tipo_entidade() == ID_SAMURAI && obstaculo->get_tipo_entidade() == ID_ESPINHO)
+					samurai->set_colisao_dir_espinho(true);
+
 				deslocamento.set_x(deslocamento.get_x() - ds.get_x());
 			}
 
@@ -52,9 +76,11 @@ namespace Gerenciadores
 			{
 				deslocamento.set_y(deslocamento.get_y() + ds.get_y());
 
-				if (personagem->get_tipo_entidade() == ID_SAMURAI)
+				if (personagem->get_tipo_entidade() == ID_SAMURAI && obstaculo->get_tipo_entidade() == ID_ESPINHO)
+					samurai->set_colisao_cima_espinho(true);
+				
+				else if (personagem->get_tipo_entidade() == ID_SAMURAI)
 				{
-					Personagens::Samurai* samurai = static_cast<Personagens::Samurai*>(personagem);
 					samurai->set_pode_pular(true);
 				}
 			}
@@ -82,14 +108,17 @@ namespace Gerenciadores
 			if (deslocamento.get_x() < inimigo->get_posicao().get_x())
 			{
 				deslocamento.set_x(deslocamento.get_x() + ds.get_x());
+				samurai->set_colisao_esq_inimigo(true);
 			}
 
 			//O samurai está a direita do obstáculo
 			else
 			{
 				deslocamento.set_x(deslocamento.get_x() - ds.get_x());
+				samurai->set_colisao_dir_inimigo(true);
 			}
 
+			samurai->set_vidas(samurai->get_vidas() - inimigo->get_dano());
 			samurai->set_velocidade(Vetor2D<float>(0.0f, samurai->get_velocidade().get_y()));
 			inimigo->set_velocidade(Vetor2D<float>(0.0f, inimigo->get_velocidade().get_y()));
 		}
@@ -101,13 +130,15 @@ namespace Gerenciadores
 			if (samurai->get_posicao().get_y() < inimigo->get_posicao().get_y())
 			{
 				deslocamento.set_y(deslocamento.get_y() + ds.get_y());
-				samurai->set_pode_pular(true);
+				samurai->set_colisao_cima_inimigo(true);
+				inimigo->set_vidas(inimigo->get_vidas() - 1);
 			}
 
 			//O samurai está abaixo do inimigo
 			else
 			{
 				deslocamento.set_y(deslocamento.get_y() - ds.get_y());
+				samurai->set_vidas(samurai->get_vidas() - inimigo->get_dano());
 			}
 
 			samurai->set_velocidade(Vetor2D<float>(samurai->get_velocidade().get_x(), 0.0f));
@@ -115,12 +146,65 @@ namespace Gerenciadores
 		}
 
 		samurai->set_posicao(deslocamento);
+
+		if (samurai->get_vidas() <= 0)
+			samurai->set_vivo(false);
+
+		if (inimigo->get_vidas() <= 0)
+			inimigo->set_vivo(false);
+	}
+
+	void GerenciadorColisao::colisao_samurai_shuriken(Entidades::Shuriken* shuriken, Vetor2D<float> ds)
+	{
+		Vetor2D<float> deslocamento = samurai->get_posicao();
+
+		//Colisão na vertical
+		if (ds.get_x() > ds.get_y())
+		{
+			//O samurai está a esquerda do shuriken 
+			if (deslocamento.get_x() < shuriken->get_posicao().get_x())
+			{
+				deslocamento.set_x(deslocamento.get_x() + ds.get_x());
+			}
+
+			//O samurai está a direita do shuriken
+			else
+			{
+				deslocamento.set_x(deslocamento.get_x() - ds.get_x());
+			}
+
+			samurai->set_velocidade(Vetor2D<float>(0.0f, samurai->get_velocidade().get_y()));
+		}
+
+		//Colisão na horizontal
+		else
+		{
+			//O samurai está acima do shuriken
+			if (samurai->get_posicao().get_y() < samurai->get_posicao().get_y())
+			{
+				deslocamento.set_y(deslocamento.get_y() + ds.get_y());
+			}
+
+			//O samurai está acima do shuriken
+			else
+			{
+				deslocamento.set_y(deslocamento.get_y() - ds.get_y());
+			}
+
+			samurai->set_velocidade(Vetor2D<float>(samurai->get_velocidade().get_x(), 0.0f));
+		}
+
+		shuriken->set_pode_atirar(false);
+		shuriken->set_posicao(shuriken->get_posicao_inicial());
+		samurai->set_vidas(samurai->get_vidas() - 1);
+		samurai->set_posicao(deslocamento);
 	}
 
 	void GerenciadorColisao::executar(float delta_t)
 	{
-		std::list<Obstaculos::Obstaculo*>::iterator i;
+		std::list<Obstaculos::Obstaculo*>::const_iterator i;
 		std::vector<Personagens::Personagem*>::const_iterator j;
+		std::list<Entidades::Shuriken*>::const_iterator k;
 
 		for (i = lista_obstaculos->begin(); i != lista_obstaculos->end(); i++)
 		{
@@ -150,6 +234,20 @@ namespace Gerenciadores
 				{
 					colisao_samurai_inimigo(inimigo, ds, delta_t);
 				}
+			}
+		}
+
+		for (k = lista_shurikens.begin(); k != lista_shurikens.end(); k++)
+		{
+			Entidades::Shuriken* shuriken = *k;
+
+			Vetor2D<float> ds = calcula_colisao(shuriken, samurai);
+
+			//Houve colisão
+			if (ds.get_x() < 0 && ds.get_y() < 0)
+			{
+				std::cout << "colisao";
+				colisao_samurai_shuriken(shuriken, ds);
 			}
 		}
 	}

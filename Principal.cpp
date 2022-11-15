@@ -4,18 +4,26 @@ Principal::Principal() :
 	lista_entidades(),
 	lista_obstaculos(),
 	gerenciador_grafico(),
-	p1{ &gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//Bamboo-Free-PNG.png" , Vetor2D<float>(200.0f,0.0f), Vetor2D<float>(200.0f, 170.0f), ID_SAMURAI, Vetor2D<float>(0.0f, 0.0f), 100 },
-	i1{ &gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//Bamboo-Free-PNG.png" , Vetor2D<float>(100.0f,0.0f), Vetor2D<float>(200.0f, 170.0f), 0, Vetor2D<float>(0.0f, 0.0f), 10, 10, &p1},
+	p1{ &gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//Bamboo-Free-PNG.png" , Vetor2D<float>(100.0f,0.0f), Vetor2D<float>(200.0f, 170.0f), ID_SAMURAI, 100 },
+	//i1{ &gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//ninja.jpg" , Vetor2D<float>(400.0f,0.0f), Vetor2D<float>(200.0f, 170.0f), 0, 10, 10, &p1},
+	k1{&gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//ninja.jpg", Vetor2D<float>(400.0f,500.0f), Vetor2D<float>(200.0f, 170.0f), ID_KAMIKAZE, 10, 0, &p1},
+	e1{&gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//Bamboo-Free-PNG.png", Vetor2D<float>(600.0f, 400.0f), Vetor2D<float>(200.0f, 100.0f), ID_ESPINHO},
 	gerenciador_colisao{&p1, &vetor_personagens, &lista_obstaculos },
 	plataforma_1{ &gerenciador_grafico,"C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//plataforma.png", Vetor2D<float>(200.0f, 600.0f), Vetor2D<float>(2000.0f, 200.0f)},
 	relogio()
 {
 	lista_entidades.add_entidade(static_cast<Entidades::Entidade*>(&p1));
-	lista_entidades.add_entidade(static_cast<Entidades::Entidade*>(&i1));
+	lista_entidades.add_entidade(static_cast<Entidades::Entidade*>(&e1));
+	lista_entidades.add_entidade(static_cast<Entidades::Entidade*>(&k1));
+	lista_entidades.add_entidade(static_cast<Entidades::Entidade*>(k1.get_shuriken()));
+	//lista_entidades.add_entidade(static_cast<Entidades::Entidade*>(&i1));
 	lista_entidades.add_entidade(static_cast<Entidades::Entidade*>(&plataforma_1));
 	lista_obstaculos.push_back(static_cast<Obstaculos::Obstaculo*>(&plataforma_1));
+	lista_obstaculos.push_back(static_cast<Obstaculos::Obstaculo*>(&e1));
 	vetor_personagens.push_back(static_cast<Personagens::Personagem*>(&p1));
-	vetor_personagens.push_back(static_cast<Personagens::Personagem*>(&i1));
+	vetor_personagens.push_back(static_cast<Personagens::Personagem*>(&k1));
+	//vetor_personagens.push_back(static_cast<Personagens::Personagem*>(&i1));
+	gerenciador_colisao.inicializar_lista_shurikens();
 	executar();
 }
 
@@ -31,15 +39,19 @@ void Principal::executar()
 		sf::Event event;
 		while (gerenciador_grafico.get_janela()->pollEvent(event))
 		{
-
 			if (event.type == sf::Event::Closed)
 				gerenciador_grafico.get_janela()->close();
+
+			if (event.type == sf::Event::Resized)
+				gerenciador_grafico.reajustar_camera();
 		}
+
 		gerenciador_grafico.limpar();
 		lista_entidades.executar_entidades(delta_t);
 		gerenciador_colisao.executar(delta_t);
-		lista_entidades.desenhar_entidades();
 		gerenciador_grafico.centralizar(p1.get_posicao());
+		lista_entidades.desenhar_entidades();
+		gerenciador_grafico.set_camera();
 		gerenciador_grafico.mostrar();
 		relogio.restart();
 	}
