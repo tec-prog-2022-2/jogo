@@ -18,10 +18,10 @@ Principal::Principal() :
 	lista_entidades.add_entidade(static_cast<Entidades::Entidade*>(k1.get_shuriken()));
 	//lista_entidades.add_entidade(static_cast<Entidades::Entidade*>(&i1));
 	lista_entidades.add_entidade(static_cast<Entidades::Entidade*>(&plataforma_1));
-	lista_obstaculos.push_back(static_cast<Obstaculos::Obstaculo*>(&plataforma_1));
-	lista_obstaculos.push_back(static_cast<Obstaculos::Obstaculo*>(&e1));
-	vetor_personagens.push_back(static_cast<Personagens::Personagem*>(&p1));
-	vetor_personagens.push_back(static_cast<Personagens::Personagem*>(&k1));
+	lista_obstaculos.push_back(static_cast<Entidades::Obstaculos::Obstaculo*>(&plataforma_1));
+	lista_obstaculos.push_back(static_cast<Entidades::Obstaculos::Obstaculo*>(&e1));
+	vetor_personagens.push_back(static_cast<Entidades::Personagens::Personagem*>(&p1));
+	vetor_personagens.push_back(static_cast<Entidades::Personagens::Personagem*>(&k1));
 	//vetor_personagens.push_back(static_cast<Personagens::Personagem*>(&i1));
 	gerenciador_colisao.inicializar_lista_shurikens();
 	executar();

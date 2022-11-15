@@ -1,7 +1,8 @@
 #pragma once
 
 #include"Lista.h"
-#include"Entidade.h" //#include"GerenciadorGrafico.h"
+#include"Entidade.h" 
+#include"Personagem.h"
 
 namespace Listas
 {

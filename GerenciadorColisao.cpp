@@ -2,7 +2,7 @@
 
 namespace Gerenciadores
 {
-	GerenciadorColisao::GerenciadorColisao(Personagens::Samurai* samurai_input, std::vector<Personagens::Personagem*>* vetor_personagens_input, std::list<Obstaculos::Obstaculo*>* lista_obstaculos_input) :
+	GerenciadorColisao::GerenciadorColisao(Entidades::Personagens::Samurai* samurai_input, std::vector<Entidades::Personagens::Personagem*>* vetor_personagens_input, std::list<Entidades::Obstaculos::Obstaculo*>* lista_obstaculos_input) :
 		samurai{samurai_input},
 		vetor_personagens{ vetor_personagens_input },
 		lista_obstaculos{ lista_obstaculos_input },
@@ -19,16 +19,14 @@ namespace Gerenciadores
 
 	void GerenciadorColisao::inicializar_lista_shurikens()
 	{
-		std::vector<Personagens::Personagem*>::const_iterator a = vetor_personagens->begin();
+		std::vector<Entidades::Personagens::Personagem*>::const_iterator a = vetor_personagens->begin();
 		for (a = vetor_personagens->begin(); a != vetor_personagens->end(); a++)
 		{
-			Personagens::Personagem* personagem = *a;
-			std::cout << "pao";
+			Entidades::Personagens::Personagem* personagem = *a;
 			if (personagem->get_tipo_entidade() == ID_KAMIKAZE)
 			{
-				Personagens::Kamikaze* kamikaze = static_cast<Personagens::Kamikaze*>(personagem);
+				Entidades::Personagens::Kamikaze* kamikaze = static_cast<Entidades::Personagens::Kamikaze*>(personagem);
 				lista_shurikens.push_back(kamikaze->get_shuriken());
-				std::cout << "pao";
 			}
 		}
 	}
@@ -40,7 +38,7 @@ namespace Gerenciadores
 		return(Vetor2D<float>(dx, dy));
 	}
 
-	void GerenciadorColisao::colisao_personagem_obstaculo(Personagens::Personagem* personagem, Obstaculos::Obstaculo* obstaculo, Vetor2D<float> ds)
+	void GerenciadorColisao::colisao_personagem_obstaculo(Entidades::Personagens::Personagem* personagem, Entidades::Obstaculos::Obstaculo* obstaculo, Vetor2D<float> ds)
 	{
 		Vetor2D<float> deslocamento = personagem->get_posicao();
 
@@ -52,7 +50,6 @@ namespace Gerenciadores
 			{
 				if (personagem->get_tipo_entidade() == ID_SAMURAI && obstaculo->get_tipo_entidade() == ID_ESPINHO)
 					samurai->set_colisao_esq_espinho(true);
-
 				deslocamento.set_x(deslocamento.get_x() + ds.get_x());
 			}
 
@@ -94,10 +91,19 @@ namespace Gerenciadores
 			personagem->set_velocidade(Vetor2D<float>(personagem->get_velocidade().get_x(), 0.0f));
 		}
 
+		if (personagem->get_tipo_entidade() == ID_SAMURAI && obstaculo->get_tipo_entidade() == ID_ESPINHO)
+		{
+			Entidades::Obstaculos::Espinho* espinho = static_cast<Entidades::Obstaculos::Espinho*>(obstaculo);
+			samurai->set_vidas(samurai->get_vidas() - espinho->get_dano());
+
+			if (samurai->get_vidas() <= 0)
+				samurai->set_vivo(false);
+		}
+
 		personagem->set_posicao(deslocamento);
 	}
 
-	void GerenciadorColisao::colisao_samurai_inimigo(Personagens::Inimigo* inimigo, Vetor2D<float> ds, float delta_t)
+	void GerenciadorColisao::colisao_samurai_inimigo(Entidades::Personagens::Inimigo* inimigo, Vetor2D<float> ds, float delta_t)
 	{
 		Vetor2D<float> deslocamento = samurai->get_posicao();
 
@@ -197,21 +203,23 @@ namespace Gerenciadores
 		shuriken->set_pode_atirar(false);
 		shuriken->set_posicao(shuriken->get_posicao_inicial());
 		samurai->set_vidas(samurai->get_vidas() - 1);
+		if (samurai->get_vidas() <= 0)
+			samurai->set_vivo(false);
 		samurai->set_posicao(deslocamento);
 	}
 
 	void GerenciadorColisao::executar(float delta_t)
 	{
-		std::list<Obstaculos::Obstaculo*>::const_iterator i;
-		std::vector<Personagens::Personagem*>::const_iterator j;
+		std::list<Entidades::Obstaculos::Obstaculo*>::const_iterator i;
+		std::vector<Entidades::Personagens::Personagem*>::const_iterator j;
 		std::list<Entidades::Shuriken*>::const_iterator k;
 
 		for (i = lista_obstaculos->begin(); i != lista_obstaculos->end(); i++)
 		{
-			Obstaculos::Obstaculo* obstaculo = *i;
+			Entidades::Obstaculos::Obstaculo* obstaculo = *i;
 			for (j = vetor_personagens->begin(); j != vetor_personagens->end(); j++)
 			{
-				Personagens::Personagem* personagem = *j;
+				Entidades::Personagens::Personagem* personagem = *j;
 				Vetor2D<float> ds = calcula_colisao(obstaculo, personagem);
 
 				//Houve colisão
@@ -226,7 +234,7 @@ namespace Gerenciadores
 		{
 			if (*j != samurai)
 			{
-				Personagens::Inimigo* inimigo = static_cast<Personagens::Inimigo*>(*j);
+				Entidades::Personagens::Inimigo* inimigo = static_cast<Entidades::Personagens::Inimigo*>(*j);
 				Vetor2D<float> ds = calcula_colisao(inimigo, samurai);
 
 				//Houve colisão

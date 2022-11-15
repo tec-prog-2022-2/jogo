@@ -1,26 +1,30 @@
-#include "Ninja.h"
+#include "Izanami.h"
 
 namespace Entidades
 {
 	namespace Personagens
 	{
-		Ninja::Ninja(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input, const char* caminho_textura_input, Vetor2D<float> posicao_input, Vetor2D<float> tamanho_corpo, int tipo_entidade_input, int vidas_input, int dano_input, Personagens::Samurai* samurai_input) :
-			Inimigo{ gerenciador_grafico_input, caminho_textura_input,posicao_input, tamanho_corpo, tipo_entidade_input, vidas_input, dano_input, samurai_input }
+		Izanami::Izanami(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input, const char* caminho_textura_input, Vetor2D<float> posicao_input, Vetor2D<float> tamanho_corpo, int tipo_entidade_input, int vidas_input, int dano_input, Personagens::Samurai* samurai_input) :
+			Inimigo{gerenciador_grafico_input, caminho_textura_input, posicao_input, tamanho_corpo, tipo_entidade_input, vidas_input, dano_input, samurai_input},
+			dobra_atributos{false}
 		{
 			srand(static_cast<unsigned int>(time(nullptr)));
 
-			if (1 + rand() % 100 >= 80)
-				dobrar_velocidade = true;
+			if (1 + rand() % 100 >= 90)
+				dobra_atributos = true;
 
-			else
-				dobrar_velocidade = false;
+			if (dobra_atributos)
+			{
+				vidas = vidas * 2;
+				dano = dano * 2;
+			}
 		}
 
-		Ninja::~Ninja()
+		Izanami::~Izanami()
 		{
 		}
 
-		void Ninja::executar(float delta_t)
+		void Izanami::executar(float delta_t)
 		{
 			velocidade.set_x(0.0f);
 			velocidade.set_y(velocidade.get_y() + 981000000.0f * delta_t);
@@ -31,7 +35,7 @@ namespace Entidades
 			else if (this->posicao.get_x() > samurai->get_posicao().get_x())
 				velocidade.set_x(velocidade.get_x() - 10000.0f);
 
-			if (dobrar_velocidade)
+			if (dobra_atributos)
 				posicao = Vetor2D<float>(posicao.get_x() + 2 * velocidade.get_x() * delta_t, posicao.get_y() + velocidade.get_y() * delta_t);
 
 			else

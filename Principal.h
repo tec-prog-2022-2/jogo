@@ -16,15 +16,15 @@ class Principal
 {
 private:
 	Listas::ListaEntidades lista_entidades;
-	std::vector<Personagens::Personagem*> vetor_personagens;
-	std::list<Obstaculos::Obstaculo*> lista_obstaculos;
+	std::vector<Entidades::Personagens::Personagem*> vetor_personagens;
+	std::list<Entidades::Obstaculos::Obstaculo*> lista_obstaculos;
 	Gerenciadores::GerenciadorGrafico gerenciador_grafico; 
 	Gerenciadores::GerenciadorColisao gerenciador_colisao;
-	Personagens::Samurai p1;
-	//Personagens::Ninja i1;
-	Personagens::Kamikaze k1;
-	Obstaculos::Plataforma plataforma_1;
-	Obstaculos::Espinho e1;
+	Entidades::Personagens::Samurai p1;
+	//Entidades::Personagens::Ninja i1;
+	Entidades::Personagens::Kamikaze k1;
+	Entidades::Obstaculos::Plataforma plataforma_1;
+	Entidades::Obstaculos::Espinho e1;
 	sf::Clock relogio;
 	
 public:

@@ -7,11 +7,11 @@
 #define ID_ESPINHO 2
 #define ID_PEDRA 3
 
-#define ID_NINJA 4
-#define ID_KAMIKAZE 5
-#define ID_SHURIKEN 6
-#define ID_IZANAMI 7
+#define ID_SHURIKEN 4
 
+#define ID_NINJA 5
+#define ID_KAMIKAZE 6
+#define ID_IZANAMI 7
 #define ID_SAMURAI 8
 
 namespace Entidades

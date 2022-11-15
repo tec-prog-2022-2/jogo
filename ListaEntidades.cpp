@@ -27,7 +27,16 @@ namespace Listas
 		for (i = lista_entidades.comeco(); i != lista_entidades.fim(); ++i)
 		{
 			Entidades::Entidade* entidade = *i;
-			entidade->executar(delta_t);
+
+			if (entidade->get_tipo_entidade() >= 5 && entidade->get_tipo_entidade() <= 9)
+			{
+				Entidades::Personagens::Personagem* personagem = static_cast<Entidades::Personagens::Personagem*>(*i);
+				if (personagem->get_vivo())
+					personagem->executar(delta_t);
+			}
+
+			else
+				entidade->executar(delta_t);
 		}
 	}
 
@@ -38,7 +47,16 @@ namespace Listas
 		for (i = lista_entidades.comeco(); i != lista_entidades.fim(); ++i)
 		{
 			Entidades::Entidade* entidade = *i;
-			entidade->desenhar();
+
+			if (entidade->get_tipo_entidade() >= 5 && entidade->get_tipo_entidade() <= 9)
+			{
+				Entidades::Personagens::Personagem* personagem = static_cast<Entidades::Personagens::Personagem*>(*i);
+				if (personagem->get_vivo())
+					personagem->desenhar();
+			}
+
+			else
+				entidade->desenhar();
 		}
 	}
 }
