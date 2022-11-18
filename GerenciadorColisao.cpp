@@ -33,8 +33,8 @@ namespace Gerenciadores
 
 	Vetor2D<float> GerenciadorColisao::calcula_colisao(Entidades::Entidade* entidade_1, Entidades::Entidade* entidade_2)
 	{
-		float dx = abs((entidade_1->get_posicao().get_x() + entidade_1->get_corpo().getSize().x / 2) - (entidade_2->get_posicao().get_x() + entidade_2->get_corpo().getSize().x / 2)) - (entidade_1->get_corpo().getSize().x + entidade_2->get_corpo().getSize().x) / 2;
-		float dy = abs((entidade_1->get_posicao().get_y() + entidade_1->get_corpo().getSize().y / 2) - (entidade_2->get_posicao().get_y() + entidade_2->get_corpo().getSize().y / 2)) - (entidade_1->get_corpo().getSize().y + entidade_2->get_corpo().getSize().y) / 2;
+		float dx = abs((entidade_1->get_posicao().get_x() + entidade_1->get_corpo()->getSize().x / 2) - (entidade_2->get_posicao().get_x() + entidade_2->get_corpo()->getSize().x / 2)) - (entidade_1->get_corpo()->getSize().x + entidade_2->get_corpo()->getSize().x) / 2;
+		float dy = abs((entidade_1->get_posicao().get_y() + entidade_1->get_corpo()->getSize().y / 2) - (entidade_2->get_posicao().get_y() + entidade_2->get_corpo()->getSize().y / 2)) - (entidade_1->get_corpo()->getSize().y + entidade_2->get_corpo()->getSize().y) / 2;
 		return(Vetor2D<float>(dx, dy));
 	}
 
@@ -48,7 +48,7 @@ namespace Gerenciadores
 			//O personagem está a esquerda do obstáculo 
 			if (deslocamento.get_x() < obstaculo->get_posicao().get_x())
 			{
-				if (personagem->get_tipo_entidade() == ID_SAMURAI && obstaculo->get_tipo_entidade() == ID_ESPINHO)
+				if (personagem->get_tipo_entidade() == ID_SAMURAI && obstaculo->get_danoso())
 					samurai->set_colisao_esq_espinho(true);
 				deslocamento.set_x(deslocamento.get_x() + ds.get_x());
 			}
@@ -56,7 +56,7 @@ namespace Gerenciadores
 			//O personagem está a direita do obstáculo
 			else
 			{
-				if (personagem->get_tipo_entidade() == ID_SAMURAI && obstaculo->get_tipo_entidade() == ID_ESPINHO)
+				if (personagem->get_tipo_entidade() == ID_SAMURAI && obstaculo->get_danoso())
 					samurai->set_colisao_dir_espinho(true);
 
 				deslocamento.set_x(deslocamento.get_x() - ds.get_x());
@@ -73,7 +73,7 @@ namespace Gerenciadores
 			{
 				deslocamento.set_y(deslocamento.get_y() + ds.get_y());
 
-				if (personagem->get_tipo_entidade() == ID_SAMURAI && obstaculo->get_tipo_entidade() == ID_ESPINHO)
+				if (personagem->get_tipo_entidade() == ID_SAMURAI && obstaculo->get_danoso())
 					samurai->set_colisao_cima_espinho(true);
 				
 				else if (personagem->get_tipo_entidade() == ID_SAMURAI)
@@ -91,7 +91,7 @@ namespace Gerenciadores
 			personagem->set_velocidade(Vetor2D<float>(personagem->get_velocidade().get_x(), 0.0f));
 		}
 
-		if (personagem->get_tipo_entidade() == ID_SAMURAI && obstaculo->get_tipo_entidade() == ID_ESPINHO)
+		if (personagem->get_tipo_entidade() == ID_SAMURAI && obstaculo->get_danoso())
 		{
 			Entidades::Obstaculos::Espinho* espinho = static_cast<Entidades::Obstaculos::Espinho*>(obstaculo);
 			samurai->set_vidas(samurai->get_vidas() - espinho->get_dano());
@@ -238,7 +238,7 @@ namespace Gerenciadores
 				Vetor2D<float> ds = calcula_colisao(inimigo, samurai);
 
 				//Houve colisão
-				if (ds.get_x() < 0 && ds.get_y() < 0)
+				if (ds.get_x() < 0 && ds.get_y() < 0 && inimigo->get_vivo())
 				{
 					colisao_samurai_inimigo(inimigo, ds, delta_t);
 				}

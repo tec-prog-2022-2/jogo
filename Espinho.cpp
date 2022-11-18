@@ -4,10 +4,13 @@ namespace Entidades
 {
     namespace Obstaculos
     {
-        Espinho::Espinho(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input, const char* caminho_textura_input, Vetor2D<float> posicao_input, Vetor2D<float> tamanho_corpo, int tipo_entidade_input, bool obstaculo_danoso_input) :
-            Obstaculo{ gerenciador_grafico_input, caminho_textura_input, posicao_input, tamanho_corpo, tipo_entidade_input, obstaculo_danoso_input },
+        Espinho::Espinho(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input, const char* caminho_textura_input, Vetor2D<float> posicao_input) :
+            Obstaculo{ gerenciador_grafico_input, caminho_textura_input, posicao_input},
             dano{ 1 }
         {
+            corpo = new sf::RectangleShape(sf::Vector2f(50.0f, 90.f));
+            tipo_entidade = ID_ESPINHO;
+            obstaculo_danoso = true;
         }
 
         Espinho::~Espinho()

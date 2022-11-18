@@ -2,11 +2,14 @@
 
 namespace Entidades
 {
-    Shuriken::Shuriken(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input, const char* caminho_textura_input, Vetor2D<float> posicao_input, Vetor2D<float> tamanho_corpo, int tipo_entidade_input) :
-        Entidade{gerenciador_grafico_input, caminho_textura_input, posicao_input, tamanho_corpo, tipo_entidade_input},
+    Shuriken::Shuriken(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input, const char* caminho_textura_input, Vetor2D<float> posicao_input) :
+        Entidade{gerenciador_grafico_input, caminho_textura_input, posicao_input},
         pode_atirar{ true },
         posicao_inicial{Vetor2D<float>(0.0f, 0.0f)}
     {
+        velocidade = Vetor2D<float>(0.0f, 0.0f);
+        corpo = new sf::RectangleShape(sf::Vector2f(50.0f, 90.f));
+        tipo_entidade = ID_SHURIKEN;
     }
 
     Shuriken::~Shuriken()

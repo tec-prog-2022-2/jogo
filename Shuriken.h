@@ -11,7 +11,7 @@ namespace Entidades
         Vetor2D<float> posicao_inicial;
 
     public:
-        Shuriken(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input = nullptr, const char* caminho_textura_input = nullptr, Vetor2D<float> posicao_input = Vetor2D<float>(0, 0), Vetor2D<float> tamanho_corpo = Vetor2D<float>(200.0, 200.0), int tipo_entidade_input = ID_SHURIKEN);
+        Shuriken(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input = nullptr, const char* caminho_textura_input=nullptr, Vetor2D<float> posicao_input = Vetor2D<float>(0.0f, 0.0f));
         ~Shuriken();
         void executar(float delta_t);
         void atirar_direita(float delta_t);

@@ -1,6 +1,6 @@
 #pragma once
 
-#include"Personagem.h"
+#include"Entidade.h"
 
 namespace Entidades
 {
@@ -12,7 +12,7 @@ namespace Entidades
 			bool obstaculo_danoso;
 
 		public:
-			Obstaculo(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input = nullptr, const char* caminho_textura_input = nullptr, Vetor2D<float> posicao_input = Vetor2D<float>(0, 0), Vetor2D<float> tamanho_corpo = Vetor2D<float>(200.0, 200.0), int tipo_entidade_input = 0, bool obstaculo_danoso_input = false);
+			Obstaculo(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input = nullptr, const char* caminho_textura_input=nullptr, Vetor2D<float> posicao_input = Vetor2D<float>(0.0f, 0.0f));
 			virtual ~Obstaculo();
 			const bool get_danoso() const;
 			virtual void executar(float delta_t) = 0;

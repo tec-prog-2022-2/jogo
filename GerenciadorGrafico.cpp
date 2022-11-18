@@ -4,12 +4,13 @@ namespace Gerenciadores
 {
 	GerenciadorGrafico::GerenciadorGrafico(Vetor2D<float> tamanho_janela, Vetor2D<float> posicao_camera) :
 		janela{ nullptr },
-		camera(sf::Vector2f(posicao_camera.get_x(), posicao_camera.get_y()), sf::Vector2f(tamanho_janela.get_x(), tamanho_janela.get_y())),
+		camera(sf::Vector2f(posicao_camera.get_x(), posicao_camera.get_y()), sf::Vector2f(1000.0f, 1000.0f)),
 		mapa_texturas(),
-		altura_camera{512.0f}
+		altura_camera{tamanho_janela.get_y()}
 	{
-		janela = new sf::RenderWindow(sf::VideoMode(static_cast<unsigned int>(tamanho_janela.get_x()), static_cast<unsigned int>(tamanho_janela.get_y())), "janela_do_joao");
+		janela = new sf::RenderWindow(sf::VideoMode(static_cast<unsigned int>(tamanho_janela.get_x()), static_cast<unsigned int>(tamanho_janela.get_y())), "Samurai++");
 		janela->setView(camera);
+		janela->setFramerateLimit(60);
 	}
 
 	GerenciadorGrafico::~GerenciadorGrafico()
@@ -61,9 +62,9 @@ namespace Gerenciadores
 		if (carregar_textura(caminho_imagem))
 		{
 			sf::Texture* textura = mapa_texturas[caminho_imagem];
+			textura->setRepeated(true);
 			sf::RectangleShape* corpo = corpo_input;
-			corpo->setTexture(textura);
-			corpo->setOrigin(corpo->getSize() / 2.0f);
+			corpo->setTexture(textura, true);
 			corpo->setPosition(posicao.get_x(), posicao.get_y());
 			janela->draw(*corpo);
 		}

@@ -4,10 +4,17 @@ namespace Entidades
 {
 	namespace Personagens
 	{
-		Izanami::Izanami(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input, const char* caminho_textura_input, Vetor2D<float> posicao_input, Vetor2D<float> tamanho_corpo, int tipo_entidade_input, int vidas_input, int dano_input, Personagens::Samurai* samurai_input) :
-			Inimigo{gerenciador_grafico_input, caminho_textura_input, posicao_input, tamanho_corpo, tipo_entidade_input, vidas_input, dano_input, samurai_input},
+		Izanami::Izanami(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input, const char* caminho_textura_input, Vetor2D<float> posicao_input, Personagens::Samurai* samurai_input) :
+			Inimigo{gerenciador_grafico_input, caminho_textura_input, posicao_input, samurai_input},
 			dobra_atributos{false}
 		{
+			velocidade = Vetor2D<float>(0.0f, 0.0f);
+			corpo = new sf::RectangleShape(sf::Vector2f(50.0f, 90.f));
+			tipo_entidade = ID_IZANAMI;
+			vidas = 20;
+			vivo = true;
+			dano = 2;
+
 			srand(static_cast<unsigned int>(time(nullptr)));
 
 			if (1 + rand() % 100 >= 90)

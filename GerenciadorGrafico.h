@@ -14,7 +14,7 @@ namespace Gerenciadores
 		float altura_camera;
 
 	public:
-		GerenciadorGrafico(Vetor2D<float> tamanho_janela = Vetor2D<float>(1024, 600), Vetor2D<float> posicao_camera = Vetor2D<float>(400, 300));
+		GerenciadorGrafico(Vetor2D<float> tamanho_janela = Vetor2D<float>(1024.0f, 768.0f), Vetor2D<float> posicao_camera = Vetor2D<float>(0.0f, 0.0f));
 		~GerenciadorGrafico();
 		void mostrar() const;
 		void limpar(int r = 0, int g = 0, int b = 0);

@@ -28,7 +28,7 @@ namespace Listas
 		{
 			Entidades::Entidade* entidade = *i;
 
-			if (entidade->get_tipo_entidade() >= 5 && entidade->get_tipo_entidade() <= 9)
+			if (entidade->get_tipo_entidade() >= 5 && entidade->get_tipo_entidade() <= 8)
 			{
 				Entidades::Personagens::Personagem* personagem = static_cast<Entidades::Personagens::Personagem*>(*i);
 				if (personagem->get_vivo())
@@ -48,7 +48,7 @@ namespace Listas
 		{
 			Entidades::Entidade* entidade = *i;
 
-			if (entidade->get_tipo_entidade() >= 5 && entidade->get_tipo_entidade() <= 9)
+			if (entidade->get_tipo_entidade() >= 5 && entidade->get_tipo_entidade() <= 8)
 			{
 				Entidades::Personagens::Personagem* personagem = static_cast<Entidades::Personagens::Personagem*>(*i);
 				if (personagem->get_vivo())

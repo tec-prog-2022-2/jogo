@@ -1,4 +1,5 @@
 #include"Principal.h"
+#include"Fase.h"
 
 int main()
 {
