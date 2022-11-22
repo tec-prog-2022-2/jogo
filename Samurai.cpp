@@ -20,7 +20,7 @@ namespace Entidades
 			velocidade = Vetor2D<float>(0.0f, 0.0f);
 			corpo = new sf::RectangleShape(sf::Vector2f(50.0f, 90.f));
 			tipo_entidade = ID_SAMURAI;
-			vidas = 15;
+			vidas = 5;
 			vivo = true;
 		}
 

@@ -4,6 +4,8 @@
 #include"Samurai.h"
 #include"GerenciadorGrafico.h"
 #include"Fase1.h"
+#include"Fase2.h"
+#include"Menu.h"
 
 class Principal
 {
@@ -12,38 +14,11 @@ private:
 	Entidades::Personagens::Samurai samurai;
 	sf::Clock relogio;
 	Fases::Fase1 fase1;
+	Fases::Fase2 fase2;
+	Menu menu;
 
 public:
 	Principal();
 	~Principal();
 	void executar();
 };
-
-
-
-
-
-
-
-
-
-
-
-/*
-#include"stdafx.h"
-#include"GerenciadorGrafico.h"
-#include"Fase1.h"
-
-class Principal
-{	
-private:
-	Gerenciadores::GerenciadorGrafico gerenciador_grafico;
-	sf::Clock relogio;
-	Fases::Fase1 fase1;
-
-public:
-	Principal();
-	~Principal();
-	void executar();
-};
-*/

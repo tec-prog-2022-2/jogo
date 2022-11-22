@@ -5,10 +5,13 @@ namespace Entidades
     Shuriken::Shuriken(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input, const char* caminho_textura_input, Vetor2D<float> posicao_input) :
         Entidade{gerenciador_grafico_input, caminho_textura_input, posicao_input},
         pode_atirar{ true },
+        atirou_direita{false},
+        atirou_esquerda{false},
+        kamikaze_vivo{true},
         posicao_inicial{Vetor2D<float>(0.0f, 0.0f)}
     {
         velocidade = Vetor2D<float>(0.0f, 0.0f);
-        corpo = new sf::RectangleShape(sf::Vector2f(50.0f, 90.f));
+        corpo = new sf::RectangleShape(sf::Vector2f(30.0f, 30.f));
         tipo_entidade = ID_SHURIKEN;
     }
 
@@ -21,19 +24,21 @@ namespace Entidades
         velocidade.set_x(0.0f);
 
         //Efeito gravitacional
-        velocidade.set_y(velocidade.get_y() + 981000000.0f * delta_t);
-        velocidade.set_y(velocidade.get_y() - 981000000.0f * delta_t);
+        velocidade.set_y(velocidade.get_y() + 30.0f * delta_t);
+        velocidade.set_y(velocidade.get_y() - 30.0f * delta_t);
     }
 
     void Shuriken::atirar_direita(float delta_t)
     {
-        velocidade.set_x(velocidade.get_x() + 10000.0f);
+        velocidade.set_x(0.0f);
+        velocidade.set_x(velocidade.get_x() + 50.0f);
         posicao = Vetor2D<float>(posicao.get_x() + velocidade.get_x() * delta_t, posicao.get_y());
     }
 
     void Shuriken::atirar_esquerda(float delta_t)
     {
-        velocidade.set_x(velocidade.get_x() - 10000.0f);
+        velocidade.set_x(0.0f);
+        velocidade.set_x(velocidade.get_x() - 50.0f);
         posicao = Vetor2D<float>(posicao.get_x() + velocidade.get_x() * delta_t, posicao.get_y());
     }
 
@@ -55,5 +60,35 @@ namespace Entidades
     const Vetor2D<float> Shuriken::get_posicao_inicial() const
     {
         return(posicao_inicial);
+    }
+
+    void Shuriken::set_atirou_esquerda(const bool atirou_input)
+    {
+        atirou_esquerda = atirou_input;
+    }
+
+    const bool Shuriken::get_atirou_esquerda() const
+    {
+        return(atirou_esquerda);
+    }
+
+    void Shuriken::set_atirou_direita(const bool atirou_input)
+    {
+        atirou_direita = atirou_input;
+    }
+
+    const bool Shuriken::get_atirou_direita() const
+    {
+        return(atirou_direita);
+    }
+
+    const bool Shuriken::get_kamikaze_vivo() const
+    {
+        return(kamikaze_vivo);
+    }
+
+    void Shuriken::set_kamikaze_vivo(const bool kamikaze_vivo_input)
+    {
+        kamikaze_vivo = kamikaze_vivo_input;
     }
 }

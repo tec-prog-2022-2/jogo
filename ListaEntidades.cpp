@@ -35,6 +35,13 @@ namespace Listas
 					personagem->executar(delta_t);
 			}
 
+			else if (entidade->get_tipo_entidade() == ID_SHURIKEN)
+			{
+				Entidades::Shuriken* shuriken= static_cast<Entidades::Shuriken *>(*i);
+				if (shuriken->get_kamikaze_vivo())
+					shuriken->executar(delta_t);
+			}
+
 			else
 				entidade->executar(delta_t);
 		}
@@ -56,7 +63,18 @@ namespace Listas
 			}
 
 			else
-				entidade->desenhar();
+			{
+				if (entidade->get_tipo_entidade() == ID_SHURIKEN)
+				{
+					Entidades::Shuriken* shuriken = static_cast<Entidades::Shuriken*>(*i);
+					
+					if (shuriken->get_kamikaze_vivo())
+						shuriken->desenhar();
+				}
+
+				else
+					entidade->desenhar();
+			}
 		}
 	}
 }

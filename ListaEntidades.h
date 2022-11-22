@@ -3,6 +3,8 @@
 #include"Lista.h"
 #include"Entidade.h" 
 #include"Personagem.h"
+#include"Shuriken.h"
+#include"Kamikaze.h"
 
 namespace Listas
 {

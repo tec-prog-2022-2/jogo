@@ -3,7 +3,8 @@
 namespace Fases
 {
 	Fase1::Fase1(Gerenciadores::GerenciadorGrafico* gerenciador_grafico, const char* background, Entidades::Personagens::Samurai* samurai_input) :
-		Fase(gerenciador_grafico, background, samurai_input)
+		Fase(gerenciador_grafico, background, samurai_input),
+		ganhou_fase{false}
 	{
 		criar_mapa();
 	}
@@ -24,26 +25,39 @@ namespace Fases
 
 		//Criando plataformas
 		int i = 0;
+		int aleatorio = 3 + rand() % 1;
 		float delta_x = 600.0f;
-		for (i = 0; i < 3; i++)
+		for (i = 0; i < aleatorio; i++)
 		{
 			criar_plataforma(Vetor2D<float>(delta_x, 550.0f));
 			delta_x+=750.0f;
 		}
 
-		//Criando a plataforma aleatória
-		int aleatorio = 1 + rand() % 100;
-		if(aleatorio>=50)
-			criar_plataforma(Vetor2D<float>(delta_x, 550.0f));
-
-		delta_x = 700.0f;
-		for (i = 0; i < 3; i++)
+		aleatorio = 3 + rand() % 1;
+		delta_x = 1100.0f;
+		for (i = 0; i < aleatorio; i++)
 		{
-			criar_pedra(Vetor2D<float>(delta_x, 300.0f));
+			criar_pedra(Vetor2D<float>(delta_x, 655.0f));
 			delta_x += 750.0f;
 		}
 
-		//criar_ninja(Vetor2D<float>((100.0f, 450.0f)));
+		aleatorio = 3 + rand() % 2;
+		delta_x = 900.0f;
+		for (i = 0; i < aleatorio; i++)
+		{
+			criar_kamikaze(Vetor2D<float>(delta_x, 450.0f));
+			delta_x += 750.0f;
+		}
+
+		aleatorio = 3 + rand() % 2;
+		delta_x = 1000.0f;
+		for (i = 0; i < aleatorio; i++)
+		{
+			criar_ninja(Vetor2D<float>(delta_x, 450.0f));
+			delta_x += 750.0f;
+		}
+
+		gerenciador_colisao.inicializar_lista_shurikens();
 	}
 
 	void Fase1::criar_plataforma(Vetor2D<float> posicao_input, Vetor2D<float> tamanho_input)
@@ -75,7 +89,7 @@ namespace Fases
 
 	void Fase1::criar_pedra(Vetor2D<float> posicao_input)
 	{
-		Entidades::Obstaculos::Pedra* pedra = new Entidades::Obstaculos::Pedra(gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//Bamboo-Free-PNG.png", posicao_input);
+		Entidades::Obstaculos::Pedra* pedra = new Entidades::Obstaculos::Pedra(gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//pedra.png", posicao_input);
 		if (!pedra)
 		{
 			std::cout << "Nao foi possivel criar pedra!" << std::endl;
@@ -101,7 +115,7 @@ namespace Fases
 
 	void Fase1::criar_kamikaze(Vetor2D<float> posicao_input)
 	{
-		Entidades::Personagens::Kamikaze* kamikaze = new Entidades::Personagens::Kamikaze(gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//Bamboo-Free-PNG.png", posicao_input);
+		Entidades::Personagens::Kamikaze* kamikaze = new Entidades::Personagens::Kamikaze(gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//kamikaze.png", posicao_input, samurai);
 		if (!kamikaze)
 		{
 			std::cout << "Nao foi possivel criar kamikaze!" << std::endl;
@@ -109,6 +123,17 @@ namespace Fases
 		}
 
 		lista_entidades.add_entidade(static_cast<Entidades::Entidade*>(kamikaze));
+		lista_entidades.add_entidade(static_cast<Entidades::Entidade*>(kamikaze->get_shuriken()));
 		vetor_personagens.push_back(static_cast<Entidades::Personagens::Personagem*>(kamikaze));
+	}
+
+	void Fase1::set_ganhou_fase(const bool ganhou_fase_input)
+	{
+		ganhou_fase = ganhou_fase_input;
+	}
+
+	const bool Fase1::get_ganhou_fase() const
+	{
+		return(ganhou_fase);
 	}
 }

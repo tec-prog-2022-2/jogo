@@ -157,7 +157,14 @@ namespace Gerenciadores
 			samurai->set_vivo(false);
 
 		if (inimigo->get_vidas() <= 0)
+		{
 			inimigo->set_vivo(false);
+			if (inimigo->get_tipo_entidade() == ID_KAMIKAZE)
+			{
+				Entidades::Personagens::Kamikaze* kamikaze = static_cast<Entidades::Personagens::Kamikaze*>(inimigo);
+				kamikaze->get_shuriken()->set_kamikaze_vivo(false);
+			}
+		}
 	}
 
 	void GerenciadorColisao::colisao_samurai_shuriken(Entidades::Shuriken* shuriken, Vetor2D<float> ds)
@@ -201,11 +208,13 @@ namespace Gerenciadores
 		}
 
 		shuriken->set_pode_atirar(false);
+		shuriken->set_atirou_direita(false);
+		shuriken->set_atirou_esquerda(false);
 		shuriken->set_posicao(shuriken->get_posicao_inicial());
 		samurai->set_vidas(samurai->get_vidas() - 1);
+		samurai->set_posicao(deslocamento);
 		if (samurai->get_vidas() <= 0)
 			samurai->set_vivo(false);
-		samurai->set_posicao(deslocamento);
 	}
 
 	void GerenciadorColisao::executar(float delta_t)
@@ -252,9 +261,8 @@ namespace Gerenciadores
 			Vetor2D<float> ds = calcula_colisao(shuriken, samurai);
 
 			//Houve colisão
-			if (ds.get_x() < 0 && ds.get_y() < 0)
+			if (ds.get_x() < 0 && ds.get_y() < 0 && shuriken->get_kamikaze_vivo())
 			{
-				std::cout << "colisao";
 				colisao_samurai_shuriken(shuriken, ds);
 			}
 		}

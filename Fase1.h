@@ -7,7 +7,8 @@ namespace Fases
 {
 	class Fase1 :public Fase
 	{
-	//private:
+	private:
+		bool ganhou_fase;
 
 	public:
 		Fase1(Gerenciadores::GerenciadorGrafico* gerenciador_grafico = nullptr, const char* background = nullptr, Entidades::Personagens::Samurai* samurai_input = nullptr);
@@ -18,5 +19,7 @@ namespace Fases
 		void criar_pedra(Vetor2D<float> posicao_input);
 		void criar_ninja(Vetor2D<float> posicao_input);
 		void criar_kamikaze(Vetor2D<float> posicao_input);
+		void set_ganhou_fase(const bool ganhou_fase_input);
+		const bool get_ganhou_fase() const;
 	};
 }

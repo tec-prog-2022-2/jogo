@@ -31,17 +31,17 @@ namespace Entidades
 			velocidade.set_x(0.0f);
 			velocidade.set_y(velocidade.get_y() + 30.0f * delta_t);
 
-			if (this->posicao.get_x() < samurai->get_posicao().get_x())
-				velocidade.set_x(velocidade.get_x() + 10.0f);
+			if (this->posicao.get_x() < samurai->get_posicao().get_x() && fabs(this->posicao.get_x()-samurai->get_posicao().get_x()) < 300)
+				velocidade.set_x(velocidade.get_x() + 35.0f);
 
-			else if (this->posicao.get_x() > samurai->get_posicao().get_x())
-				velocidade.set_x(velocidade.get_x() - 10.0f);
+			else if (this->posicao.get_x() > samurai->get_posicao().get_x() && fabs(this->posicao.get_x() - samurai->get_posicao().get_x()) < 300)
+				velocidade.set_x(velocidade.get_x() - 35.0f);
 
 			if (dobrar_velocidade)
 				posicao = Vetor2D<float>(posicao.get_x() + 2 * velocidade.get_x() * delta_t, posicao.get_y() + velocidade.get_y() * delta_t);
 
 			else
-				posicao = Vetor2D<float>(posicao.get_x() + 2 * velocidade.get_x() * delta_t, posicao.get_y() + velocidade.get_y() * delta_t);
+				posicao = Vetor2D<float>(posicao.get_x() + velocidade.get_x() * delta_t, posicao.get_y() + velocidade.get_y() * delta_t);
 		}
 	}
 }

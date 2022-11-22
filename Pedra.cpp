@@ -8,7 +8,7 @@ namespace Entidades
             Obstaculo{ gerenciador_grafico_input, caminho_textura_input, posicao_input },
             metade_altura{ false }
         {
-            corpo = new sf::RectangleShape(sf::Vector2f(190.0f, 90.f));
+            corpo = new sf::RectangleShape(sf::Vector2f(50.0f, 90.f));
             tipo_entidade = ID_PEDRA;
             obstaculo_danoso = false;
 
@@ -27,8 +27,8 @@ namespace Entidades
         void Pedra::executar(float delta_t)
         {
             //Efeito gravitacional
-            velocidade.set_y(velocidade.get_y() + 981000000.0f * delta_t);
-            velocidade.set_y(velocidade.get_y() - 981000000.0f * delta_t);
+            velocidade.set_y(velocidade.get_y() + 30.0f * delta_t);
+            velocidade.set_y(velocidade.get_y() - 30.0f * delta_t);
         }
     }
 }

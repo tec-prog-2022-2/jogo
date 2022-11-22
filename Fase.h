@@ -5,6 +5,7 @@
 #include"Samurai.h"
 #include"Ninja.h"
 #include"Kamikaze.h"
+#include"Izanami.h"
 #include"Plataforma.h"
 #include"Espinho.h"
 #include"Pedra.h"

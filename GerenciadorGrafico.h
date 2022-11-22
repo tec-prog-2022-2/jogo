@@ -20,6 +20,7 @@ namespace Gerenciadores
 		void limpar(int r = 0, int g = 0, int b = 0);
 		bool carregar_textura(const std::string caminho_imagem);
 		void desenhar(const std::string caminho_imagem, const Vetor2D<float> posicao, sf::RectangleShape* corpo_input);
+		//void desenhar_fonte();
 		void centralizar(Vetor2D<float> posicao);
 		sf::RenderWindow* get_janela() const;
 		void set_camera();
