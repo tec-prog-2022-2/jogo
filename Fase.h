@@ -5,7 +5,7 @@
 #include"Samurai.h"
 #include"Ninja.h"
 #include"Kamikaze.h"
-#include"Izanami.h"
+#include"Izanagi.h"
 #include"Plataforma.h"
 #include"Espinho.h"
 #include"Pedra.h"
@@ -24,14 +24,16 @@ namespace Fases
 		std::vector<Entidades::Personagens::Personagem*> vetor_personagens;
 		std::list<Entidades::Obstaculos::Obstaculo*> lista_obstaculos;
 		Entidades::Personagens::Samurai* samurai;
+		Entidades::Personagens::Samurai* samurai_2;
 		Gerenciadores::GerenciadorColisao gerenciador_colisao;
 
 	public:
 		Fase(Gerenciadores::GerenciadorGrafico* gerenciador_grafico = nullptr, const char* background = nullptr, Entidades::Personagens::Samurai* samurai_input=nullptr);
 		virtual ~Fase();
-		void desenhar() {}; //desenhar a textura da fase?
+		void desenhar() {}; 
 		void executar(float delta_t);
 		void set_samurai(Vetor2D<float> posicao_input);
+		void set_samurai_2(Entidades::Personagens::Samurai* samurai_2_input, Vetor2D<float> posicao_input);
 	};
 }
 

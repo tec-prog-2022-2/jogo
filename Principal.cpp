@@ -2,22 +2,32 @@
 
 Principal::Principal() :
 	gerenciador_grafico(),
-	samurai{ &gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//samurai.png" , Vetor2D<float>(100.0f,0.0f)},
+	samurai{ &gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//samurai.png" , Vetor2D<float>(0.0f, 0.0f) },
+	samurai_2{nullptr},
 	relogio(),
+	menu_inicial{true},
+	menu_final{false},
+	fase_1_1_jog{false},
+	fase_1_2_jog{false},
+	fase_2_1_jog{false},
+	fase_2_2_jog{false},
 	fase1{&gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//Bamboo-Free-PNG.png", &samurai},
 	fase2{&gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//Bamboo-Free-PNG.png", &samurai},
-	menu{&gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//arial//arial.ttf"}
+	menu{&gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//ethn.otf", true},
+	criar_fase_1{false},
+	criar_fase_2{false}
 {
 	executar();
 }
 
 Principal::~Principal()
 {
+	samurai_2 = nullptr;
 }
 
 void Principal::executar()
 {
-	float dt = 0;
+	float dt = 0.0f;
 
 	while (gerenciador_grafico.get_janela()->isOpen())
 	{
@@ -30,42 +40,307 @@ void Principal::executar()
 
 			if (event.type == sf::Event::Resized)
 				gerenciador_grafico.reajustar_camera();
+
+			if (menu_inicial)
+			{
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !menu.pressionado) {
+					if (menu.posicao < 4) {
+						menu.posicao++;
+						menu.pressionado = true;
+						menu.textos[menu.posicao].setOutlineThickness(4);
+						menu.textos[menu.posicao - 1].setOutlineThickness(0);
+						menu.pressionado = false;
+						menu.selecionado = false;
+					}
+				}
+
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !menu.pressionado) {
+					if (menu.posicao > 1) {
+						menu.posicao--;
+						menu.pressionado = true;
+						menu.textos[menu.posicao].setOutlineThickness(4);
+						menu.textos[menu.posicao + 1].setOutlineThickness(0);
+						menu.pressionado = false;
+						menu.selecionado = false;
+					}
+				}
+
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && !menu.selecionado) {
+					menu.selecionado = true;
+					if (menu.posicao == 1)
+					{
+						menu_inicial = false;
+						fase_1_1_jog = true;
+						criar_fase_1 = false;
+						criar_fase_2 = false;
+						samurai.set_vidas(5);
+						samurai.set_vivo(true);
+						gerenciador_grafico.limpar();
+						gerenciador_grafico.centralizar(samurai.get_posicao() + Vetor2D<float>(0.0f, -100.0f));
+						gerenciador_grafico.set_camera();
+					}
+
+					if (menu.posicao == 2)
+					{
+						menu_inicial = false;
+						fase_1_2_jog = true;
+						gerenciador_grafico.limpar();
+						gerenciador_grafico.centralizar(samurai.get_posicao() + Vetor2D<float>(0.0f, -100.0f));
+						gerenciador_grafico.set_camera();
+						samurai.set_vidas(5);
+						samurai.set_vivo(true);
+						samurai_2 = new Entidades::Personagens::Samurai(&gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//samurai.png", Vetor2D<float>(600.0f, 0.0f));
+						samurai_2->set_jogador_principal(false);
+						samurai_2->set_vivo(true);
+						fase1.set_samurai_2(samurai_2, Vetor2D<float>(600.0f, 600.0f));
+					}
+
+					if (menu.posicao == 3)
+					{
+						menu_inicial = false;
+						fase_2_1_jog = true;
+						gerenciador_grafico.limpar();
+						gerenciador_grafico.centralizar(samurai.get_posicao() + Vetor2D<float>(0.0f, -100.0f));
+						gerenciador_grafico.set_camera();
+						samurai.set_vidas(5);
+						samurai.set_vivo(true);
+					}
+
+					if (menu.posicao == 4)
+					{
+						menu_inicial = false;
+						fase_2_2_jog = true;
+						while (samurai.get_posicao().get_x() != 600.0f)
+						{
+							gerenciador_grafico.limpar();
+							samurai.set_posicao(Vetor2D<float>(600.0f, 600.0f));
+							gerenciador_grafico.centralizar(samurai.get_posicao() + Vetor2D<float>(0.0f, -100.0f));
+							gerenciador_grafico.set_camera();
+							samurai.set_vivo(true);
+						}
+						samurai.set_vidas(5);
+						samurai_2 = new Entidades::Personagens::Samurai(&gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//samurai.png", Vetor2D<float>(0.0f, 0.0f));
+						samurai_2->set_jogador_principal(false);
+						samurai_2->set_vivo(true);
+						fase2.set_samurai_2(samurai_2, Vetor2D<float>(650.0f, 600.0f));
+					}
+				}
+			}
 		}
 
-		if (!fase1.get_ganhou_fase())
+		if (menu_inicial || menu_final)
 		{
-			fase1.executar(dt * 4);
-
-			if (samurai.get_posicao().get_x() == 2950)
+			if (menu_inicial)
 			{
-				fase1.set_ganhou_fase(true);
+				gerenciador_grafico.set_camera_menu();
+				gerenciador_grafico.centralizar_menu(Vetor2D<float>(650, 200.0f));
+				menu.desenhar();
 			}
 
-			if (samurai.get_posicao().get_x() + samurai.get_corpo()->getGlobalBounds().width > 3000)
-				samurai.set_posicao(Vetor2D<float>(3000 - samurai.get_corpo()->getGlobalBounds().width, samurai.get_posicao().get_y()));
+			if (menu_final)
+			{
 
-			else if (samurai.get_posicao().get_x() < 500.0f)
-				samurai.set_posicao(Vetor2D<float>(500.0f, samurai.get_posicao().get_y()));
-
-			dt = relogio.restart().asSeconds();
+			}
 		}
 
-		else if (fase1.get_ganhou_fase() && !fase2.get_ganhou_jogo())
+		else
 		{
-			fase2.executar(dt * 4);
-
-			if (samurai.get_posicao().get_x() == 2950)
+			if (fase_1_1_jog)
 			{
-				fase2.set_ganhou_jogo(true);
+				if (!criar_fase_1)
+				{
+					criar_fase_1 = true;
+					fase1.criar_mapa();
+				}
+
+				if (!fase1.get_ganhou_fase() && criar_fase_1)
+				{
+					if (!samurai.get_vivo())
+					{
+						fase_1_1_jog = false;
+						menu_final = true;
+					}
+
+					fase1.executar(dt*4);
+
+					if (samurai.get_posicao().get_x() >= 2940)
+					{
+						fase1.set_ganhou_fase(true);
+					}
+
+					if (samurai.get_posicao().get_x() + samurai.get_corpo()->getGlobalBounds().width > 3000)
+						samurai.set_posicao(Vetor2D<float>(3000 - samurai.get_corpo()->getGlobalBounds().width, samurai.get_posicao().get_y()));
+
+					else if (samurai.get_posicao().get_x() < 500.0f)
+						samurai.set_posicao(Vetor2D<float>(500.0f, samurai.get_posicao().get_y()));
+
+					dt = relogio.restart().asSeconds();
+				}
+
+				if (!criar_fase_2 && fase1.get_ganhou_fase())
+				{
+					criar_fase_2 = true;
+					fase2.criar_mapa();
+					while (samurai.get_posicao().get_x() != 600.0f)
+						samurai.set_posicao(Vetor2D<float>(600.0f, 0.0f));
+				}
+
+				if (!fase2.get_ganhou_jogo() && criar_fase_2)
+				{
+					if (!samurai.get_vivo())
+					{
+						fase_1_1_jog = false;
+						menu_final = true;
+					}
+
+					fase2.executar(dt * 4);
+
+					if (samurai.get_posicao().get_x() >= 2940)
+					{
+						fase2.set_ganhou_jogo(true);
+					}
+
+					if (samurai.get_posicao().get_x() + samurai.get_corpo()->getGlobalBounds().width > 3000)
+						samurai.set_posicao(Vetor2D<float>(3000 - samurai.get_corpo()->getGlobalBounds().width, samurai.get_posicao().get_y()));
+
+					else if (samurai.get_posicao().get_x() < 500.0f)
+						samurai.set_posicao(Vetor2D<float>(500.0f, samurai.get_posicao().get_y()));
+
+					dt = relogio.restart().asSeconds();
+				}
 			}
 
-			if (samurai.get_posicao().get_x() + samurai.get_corpo()->getGlobalBounds().width > 3000)
-				samurai.set_posicao(Vetor2D<float>(3000 - samurai.get_corpo()->getGlobalBounds().width, samurai.get_posicao().get_y()));
+			else if (fase_1_2_jog)
+			{
+				if (!criar_fase_1)
+				{
+					criar_fase_1 = true;
+					fase1.criar_mapa();
+				}
 
-			else if (samurai.get_posicao().get_x() < 500.0f)
-				samurai.set_posicao(Vetor2D<float>(500.0f, samurai.get_posicao().get_y()));
+				if (!fase1.get_ganhou_fase() && criar_fase_1)
+				{
+					if (!samurai.get_vivo() || !samurai_2->get_vivo())
+					{
+						fase_1_2_jog = false;
+						menu_final = true;
+					}
 
-			dt = relogio.restart().asSeconds();
+					fase1.executar(dt * 4);
+
+					if (samurai.get_posicao().get_x() >= 2940)
+					{
+						fase1.set_ganhou_fase(true);
+					}
+
+					if (samurai.get_posicao().get_x() + samurai.get_corpo()->getGlobalBounds().width > 3000)
+						samurai.set_posicao(Vetor2D<float>(3000 - samurai.get_corpo()->getGlobalBounds().width, samurai.get_posicao().get_y()));
+
+					else if (samurai.get_posicao().get_x() < 500.0f)
+						samurai.set_posicao(Vetor2D<float>(500.0f, samurai.get_posicao().get_y()));
+
+					dt = relogio.restart().asSeconds();
+				}
+
+				if (!criar_fase_2 && fase1.get_ganhou_fase())
+				{
+					criar_fase_2 = true;
+					fase2.criar_mapa();
+					fase2.set_samurai_2(samurai_2, Vetor2D<float>(600.0f, 600.0f));
+					while (samurai.get_posicao().get_x() != 600.0f)
+						samurai.set_posicao(Vetor2D<float>(600.0f, 400.0f));
+				}
+
+				if (!fase2.get_ganhou_jogo() && criar_fase_2)
+				{
+					if (!samurai.get_vivo() || !samurai_2->get_vivo())
+					{
+						fase_1_2_jog = false;
+						menu_final = true;
+					}
+
+					fase2.executar(dt * 4);
+
+					if (samurai.get_posicao().get_x() >= 2940)
+					{
+						fase2.set_ganhou_jogo(true);
+					}
+
+					if (samurai.get_posicao().get_x() + samurai.get_corpo()->getGlobalBounds().width > 3000)
+						samurai.set_posicao(Vetor2D<float>(3000 - samurai.get_corpo()->getGlobalBounds().width, samurai.get_posicao().get_y()));
+
+					else if (samurai.get_posicao().get_x() < 500.0f)
+						samurai.set_posicao(Vetor2D<float>(500.0f, samurai.get_posicao().get_y()));
+
+					dt = relogio.restart().asSeconds();
+				}
+			}
+
+			else if (fase_2_1_jog)
+			{
+				if (!criar_fase_2)
+				{
+					criar_fase_2 = true;
+					fase2.criar_mapa();
+				}
+
+				if (!fase2.get_ganhou_jogo() && criar_fase_2)
+				{
+					if (!samurai.get_vivo())
+					{
+						fase_2_1_jog = false;
+						menu_final = true;
+					}
+
+					fase2.executar(dt * 4);
+
+					if (samurai.get_posicao().get_x() >= 2940)
+					{
+						fase2.set_ganhou_jogo(true);
+					}
+
+					if (samurai.get_posicao().get_x() + samurai.get_corpo()->getGlobalBounds().width > 3000)
+						samurai.set_posicao(Vetor2D<float>(3000 - samurai.get_corpo()->getGlobalBounds().width, samurai.get_posicao().get_y()));
+
+					else if (samurai.get_posicao().get_x() < 500.0f)
+						samurai.set_posicao(Vetor2D<float>(500.0f, samurai.get_posicao().get_y()));
+
+					dt = relogio.restart().asSeconds();
+				}
+			}
+
+			else if (fase_2_2_jog)
+			{
+				if (!criar_fase_2)
+				{
+					criar_fase_2 = true;
+					fase2.criar_mapa();
+				}
+
+				if (!fase2.get_ganhou_jogo() && criar_fase_2)
+				{
+					if (!samurai.get_vivo() || !samurai_2->get_vivo())
+					{
+						fase_2_2_jog = false;
+						menu_final = true;
+					}
+
+					fase2.executar(dt * 4);
+
+					if (samurai.get_posicao().get_x() >= 2940)
+					{
+						fase2.set_ganhou_jogo(true);
+					}
+
+					if (samurai.get_posicao().get_x() + samurai.get_corpo()->getGlobalBounds().width > 3000)
+						samurai.set_posicao(Vetor2D<float>(3000 - samurai.get_corpo()->getGlobalBounds().width, samurai.get_posicao().get_y()));
+
+					else if (samurai.get_posicao().get_x() < 500.0f)
+						samurai.set_posicao(Vetor2D<float>(500.0f, samurai.get_posicao().get_y()));
+
+					dt = relogio.restart().asSeconds();
+				}
+			}
 		}
 	}
 }

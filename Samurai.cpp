@@ -6,6 +6,7 @@ namespace Entidades
 	{
 		Samurai::Samurai(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input, const char* caminho_textura_input, Vetor2D<float> posicao_input) :
 			Personagem{ gerenciador_grafico_input, caminho_textura_input, posicao_input},
+			jogador_principal{true},
 			pontos{ 0 },
 			pode_pular{ false },
 			altura_maxima{ 300.0f },
@@ -31,98 +32,210 @@ namespace Entidades
 		//Hilze Vonck
 		void Samurai::executar(float delta_t)
 		{
-			velocidade.set_x(0.0f);
-			velocidade.set_y(velocidade.get_y() + 40.0f * delta_t);
-
-			if (colisao_dir_espinho && temporizador_movimento <= 100)
+			if (pode_executar)
 			{
-				velocidade.set_x(velocidade.get_x() + 30.0f);
-				temporizador_movimento++;
-
-				if (temporizador_movimento == 100)
+				if (jogador_principal)
 				{
-					colisao_dir_espinho = false;
-					temporizador_movimento = 0;
+					velocidade.set_x(0.0f);
+					velocidade.set_y(velocidade.get_y() + GRAVIDADE * delta_t);
+
+					std::cout << posicao.get_y() << std::endl;
+
+					if (colisao_dir_espinho && temporizador_movimento <= 100)
+					{
+						velocidade.set_x(velocidade.get_x() + 30.0f);
+						temporizador_movimento++;
+
+						if (temporizador_movimento == 10)
+						{
+							colisao_dir_espinho = false;
+							temporizador_movimento = 0;
+						}
+					}
+
+					else if (colisao_esq_espinho && temporizador_movimento <= 10)
+					{
+						velocidade.set_x(velocidade.get_x() - 30.0f);
+						temporizador_movimento++;
+
+						if (temporizador_movimento == 10)
+						{
+							colisao_esq_espinho = false;
+							temporizador_movimento = 0;
+						}
+					}
+
+					else if (colisao_cima_espinho && temporizador_movimento <= 10)
+					{
+						velocidade.set_y(-sqrtf(GRAVIDADE * altura_maxima/4));
+						temporizador_movimento++;
+
+						if (temporizador_movimento == 10)
+						{
+							colisao_cima_espinho = false;
+							temporizador_movimento = 0;
+						}
+					}
+
+					else if (colisao_dir_inimigo && temporizador_movimento <= 10)
+					{
+						velocidade.set_x(velocidade.get_x() + 30.0f);
+						temporizador_movimento++;
+
+						if (temporizador_movimento == 10)
+						{
+							colisao_dir_inimigo = false;
+							temporizador_movimento = 0;
+						}
+					}
+
+					else if (colisao_esq_inimigo && temporizador_movimento <= 10)
+					{
+						velocidade.set_x(velocidade.get_x() - 30.0f);
+						temporizador_movimento++;
+
+						if (temporizador_movimento == 10)
+						{
+							colisao_esq_inimigo = false;
+							temporizador_movimento = 0;
+						}
+					}
+
+					else if (colisao_cima_inimigo && temporizador_movimento <= 10)
+					{
+						velocidade.set_y(-sqrtf(GRAVIDADE * altura_maxima/4));
+						temporizador_movimento++;
+
+						if (temporizador_movimento == 10)
+						{
+							colisao_cima_inimigo = false;
+							temporizador_movimento = 0;
+						}
+					}
+
+					else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && pode_pular)
+					{
+						set_pode_pular(false);
+						velocidade.set_y(-sqrtf(GRAVIDADE * altura_maxima));
+					}
+
+					else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+					{
+						velocidade.set_x(velocidade.get_x() - 30.0f);
+					}
+
+					else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+					{
+						velocidade.set_x(velocidade.get_x() + 40.0f);
+					}
 				}
-			}
 
-			else if (colisao_esq_espinho && temporizador_movimento <= 10)
-			{
-				velocidade.set_x(velocidade.get_x() - 30.0f);
-				temporizador_movimento++;
-
-				if (temporizador_movimento == 10)
+				else
 				{
-					colisao_esq_espinho = false;
-					temporizador_movimento = 0;
+					velocidade.set_x(0.0f);
+					velocidade.set_y(velocidade.get_y() + GRAVIDADE * delta_t);
+
+					std::cout << posicao.get_y() << std::endl;
+
+					if (colisao_dir_espinho && temporizador_movimento <= 100)
+					{
+						velocidade.set_x(velocidade.get_x() + 30.0f);
+						temporizador_movimento++;
+
+						if (temporizador_movimento == 100)
+						{
+							colisao_dir_espinho = false;
+							temporizador_movimento = 0;
+						}
+					}
+
+					else if (colisao_esq_espinho && temporizador_movimento <= 10)
+					{
+						velocidade.set_x(velocidade.get_x() - 30.0f);
+						temporizador_movimento++;
+
+						if (temporizador_movimento == 10)
+						{
+							colisao_esq_espinho = false;
+							temporizador_movimento = 0;
+						}
+					}
+
+					else if (colisao_cima_espinho && temporizador_movimento <= 10)
+					{
+						velocidade.set_y(-sqrtf(GRAVIDADE * altura_maxima / 4));
+						temporizador_movimento++;
+
+						if (temporizador_movimento == 10)
+						{
+							colisao_cima_espinho = false;
+							temporizador_movimento = 0;
+						}
+					}
+
+					else if (colisao_dir_inimigo && temporizador_movimento <= 10)
+					{
+						velocidade.set_x(velocidade.get_x() + 30.0f);
+						temporizador_movimento++;
+
+						if (temporizador_movimento == 10)
+						{
+							colisao_dir_inimigo = false;
+							temporizador_movimento = 0;
+						}
+					}
+
+					else if (colisao_esq_inimigo && temporizador_movimento <= 10)
+					{
+						velocidade.set_x(velocidade.get_x() - 30.0f);
+						temporizador_movimento++;
+
+						if (temporizador_movimento == 10)
+						{
+							colisao_esq_inimigo = false;
+							temporizador_movimento = 0;
+						}
+					}
+
+					else if (colisao_cima_inimigo && temporizador_movimento <= 10)
+					{
+						velocidade.set_y(-sqrtf(GRAVIDADE * altura_maxima / 4));
+						temporizador_movimento++;
+
+						if (temporizador_movimento == 10)
+						{
+							colisao_cima_inimigo = false;
+							temporizador_movimento = 0;
+						}
+					}
+
+					else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && pode_pular)
+					{
+						set_pode_pular(false);
+						velocidade.set_y(-sqrtf(GRAVIDADE * altura_maxima));
+					}
+
+					else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+					{
+						velocidade.set_x(velocidade.get_x() - 30.0f);
+					}
+
+					else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+					{
+						velocidade.set_x(velocidade.get_x() + 40.0f);
+					}
 				}
-			}
 
-			else if (colisao_cima_espinho && temporizador_movimento <= 10)
+				posicao = Vetor2D<float>(posicao.get_x() + velocidade.get_x() * delta_t, posicao.get_y() + velocidade.get_y() * delta_t);
+			}
+			
+			else
 			{
-				velocidade.set_y(-sqrtf(2.0f * 20.0f * altura_maxima));
-				temporizador_movimento++;
-
-				if (temporizador_movimento == 10)
-				{
-					colisao_cima_espinho = false;
-					temporizador_movimento = 0;
-				}
+				temporizador_pode_executar++;
+				
+				if(temporizador_pode_executar>=5)
+					this->set_pode_executar(true);	
 			}
-
-			else if (colisao_dir_inimigo && temporizador_movimento <= 10)
-			{
-				velocidade.set_x(velocidade.get_x() + 30.0f);
-				temporizador_movimento++;
-
-				if (temporizador_movimento == 10)
-				{
-					colisao_dir_inimigo = false;
-					temporizador_movimento = 0;
-				}
-			}
-
-			else if (colisao_esq_inimigo && temporizador_movimento <= 10)
-			{
-				velocidade.set_x(velocidade.get_x() - 30.0f);
-				temporizador_movimento++;
-
-				if (temporizador_movimento == 10)
-				{
-					colisao_esq_inimigo = false;
-					temporizador_movimento = 0;
-				}
-			}
-
-			else if (colisao_cima_inimigo && temporizador_movimento <= 10)
-			{
-				velocidade.set_y(-sqrtf(2.0f * 10.0f * altura_maxima));
-				temporizador_movimento++;
-
-				if (temporizador_movimento == 10)
-				{
-					colisao_cima_inimigo = false;
-					temporizador_movimento = 0;
-				}
-			}
-
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && pode_pular)
-			{
-				set_pode_pular(false);
-				velocidade.set_y(-sqrtf(2.0f * 20.0f * altura_maxima));
-			}
-
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-			{
-				velocidade.set_x(velocidade.get_x() - 30.0f);
-			}
-
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-			{
-				velocidade.set_x(velocidade.get_x() + 40.0f);
-			}
-
-			posicao = Vetor2D<float>(posicao.get_x() + velocidade.get_x() * delta_t, posicao.get_y() + velocidade.get_y() * delta_t);
 		}
 
 		void Samurai::set_pode_pular(const bool pode_pular_input)
@@ -168,6 +281,16 @@ namespace Entidades
 		const int Samurai::get_pontos() const
 		{
 			return(pontos);
+		}
+
+		void Samurai::set_jogador_principal(const bool jogador_principal_input)
+		{
+			jogador_principal = jogador_principal_input;
+		}
+
+		const bool Samurai::get_jogador_principal() const
+		{
+			return(jogador_principal);
 		}
 	}
 }

@@ -4,6 +4,7 @@ namespace Gerenciadores
 {
 	GerenciadorColisao::GerenciadorColisao(Entidades::Personagens::Samurai* samurai_input, std::vector<Entidades::Personagens::Personagem*>* vetor_personagens_input, std::list<Entidades::Obstaculos::Obstaculo*>* lista_obstaculos_input) :
 		samurai{samurai_input},
+		samurai_2{nullptr},
 		vetor_personagens{ vetor_personagens_input },
 		lista_obstaculos{ lista_obstaculos_input },
 		lista_shurikens{}
@@ -12,6 +13,7 @@ namespace Gerenciadores
 
 	GerenciadorColisao::~GerenciadorColisao()
 	{
+		samurai = nullptr;
 		lista_shurikens.clear();
 		vetor_personagens = nullptr;
 		lista_obstaculos = nullptr;
@@ -49,7 +51,16 @@ namespace Gerenciadores
 			if (deslocamento.get_x() < obstaculo->get_posicao().get_x())
 			{
 				if (personagem->get_tipo_entidade() == ID_SAMURAI && obstaculo->get_danoso())
-					samurai->set_colisao_esq_espinho(true);
+				{
+					Entidades::Personagens::Samurai* samurai_aux = static_cast<Entidades::Personagens::Samurai*>(personagem);
+
+					if(samurai_aux->get_jogador_principal())
+						samurai->set_colisao_esq_espinho(true);
+
+					else
+						samurai_2->set_colisao_esq_espinho(true);
+				}
+					
 				deslocamento.set_x(deslocamento.get_x() + ds.get_x());
 			}
 
@@ -57,7 +68,15 @@ namespace Gerenciadores
 			else
 			{
 				if (personagem->get_tipo_entidade() == ID_SAMURAI && obstaculo->get_danoso())
-					samurai->set_colisao_dir_espinho(true);
+				{
+					Entidades::Personagens::Samurai* samurai_aux = static_cast<Entidades::Personagens::Samurai*>(personagem);
+
+					if (samurai_aux->get_jogador_principal())
+						samurai->set_colisao_dir_espinho(true);
+
+					else
+						samurai_2->set_colisao_dir_espinho(true);
+				}
 
 				deslocamento.set_x(deslocamento.get_x() - ds.get_x());
 			}
@@ -74,11 +93,25 @@ namespace Gerenciadores
 				deslocamento.set_y(deslocamento.get_y() + ds.get_y());
 
 				if (personagem->get_tipo_entidade() == ID_SAMURAI && obstaculo->get_danoso())
-					samurai->set_colisao_cima_espinho(true);
+				{
+					Entidades::Personagens::Samurai* samurai_aux = static_cast<Entidades::Personagens::Samurai*>(personagem);
+
+					if (samurai_aux->get_jogador_principal())
+						samurai->set_colisao_cima_espinho(true);
+
+					else
+						samurai_2->set_colisao_cima_espinho(true);
+				}
 				
 				else if (personagem->get_tipo_entidade() == ID_SAMURAI)
 				{
-					samurai->set_pode_pular(true);
+					Entidades::Personagens::Samurai* samurai_aux = static_cast<Entidades::Personagens::Samurai*>(personagem);
+
+					if (samurai_aux->get_jogador_principal())
+						samurai->set_pode_pular(true);
+
+					else
+						samurai_2->set_pode_pular(true);
 				}
 			}
 
@@ -94,18 +127,31 @@ namespace Gerenciadores
 		if (personagem->get_tipo_entidade() == ID_SAMURAI && obstaculo->get_danoso())
 		{
 			Entidades::Obstaculos::Espinho* espinho = static_cast<Entidades::Obstaculos::Espinho*>(obstaculo);
-			samurai->set_vidas(samurai->get_vidas() - espinho->get_dano());
 
-			if (samurai->get_vidas() <= 0)
-				samurai->set_vivo(false);
+			Entidades::Personagens::Samurai* samurai_aux = static_cast<Entidades::Personagens::Samurai*>(personagem);
+
+			if (samurai_aux->get_jogador_principal())
+			{
+				samurai->set_vidas(samurai->get_vidas() - espinho->get_dano());
+				if (samurai->get_vidas() <= 0)
+					samurai->set_vivo(false);
+
+			}
+		
+			else
+			{
+				samurai_2->set_vidas(samurai_2->get_vidas() - espinho->get_dano());
+				if (samurai_2->get_vidas() <= 0)
+					samurai_2->set_vivo(false);
+			}
 		}
 
 		personagem->set_posicao(deslocamento);
 	}
 
-	void GerenciadorColisao::colisao_samurai_inimigo(Entidades::Personagens::Inimigo* inimigo, Vetor2D<float> ds, float delta_t)
+	void GerenciadorColisao::colisao_samurai_inimigo(Entidades::Personagens::Samurai* samurai_input, Entidades::Personagens::Inimigo* inimigo, Vetor2D<float> ds, float delta_t)
 	{
-		Vetor2D<float> deslocamento = samurai->get_posicao();
+		Vetor2D<float> deslocamento = samurai_input->get_posicao();
 
 		//Colisão na vertical
 		if (ds.get_x() > ds.get_y())
@@ -114,18 +160,18 @@ namespace Gerenciadores
 			if (deslocamento.get_x() < inimigo->get_posicao().get_x())
 			{
 				deslocamento.set_x(deslocamento.get_x() + ds.get_x());
-				samurai->set_colisao_esq_inimigo(true);
+				samurai_input->set_colisao_esq_inimigo(true);
 			}
 
 			//O samurai está a direita do obstáculo
 			else
 			{
 				deslocamento.set_x(deslocamento.get_x() - ds.get_x());
-				samurai->set_colisao_dir_inimigo(true);
+				samurai_input->set_colisao_dir_inimigo(true);
 			}
 
-			samurai->set_vidas(samurai->get_vidas() - inimigo->get_dano());
-			samurai->set_velocidade(Vetor2D<float>(0.0f, samurai->get_velocidade().get_y()));
+			samurai_input->set_vidas(samurai_input->get_vidas() - inimigo->get_dano());
+			samurai_input->set_velocidade(Vetor2D<float>(0.0f, samurai_input->get_velocidade().get_y()));
 			inimigo->set_velocidade(Vetor2D<float>(0.0f, inimigo->get_velocidade().get_y()));
 		}
 
@@ -133,10 +179,10 @@ namespace Gerenciadores
 		else
 		{
 			//O samurai está acima do inimigo
-			if (samurai->get_posicao().get_y() < inimigo->get_posicao().get_y())
+			if (samurai_input->get_posicao().get_y() < inimigo->get_posicao().get_y())
 			{
 				deslocamento.set_y(deslocamento.get_y() + ds.get_y());
-				samurai->set_colisao_cima_inimigo(true);
+				samurai_input->set_colisao_cima_inimigo(true);
 				inimigo->set_vidas(inimigo->get_vidas() - 1);
 			}
 
@@ -144,17 +190,17 @@ namespace Gerenciadores
 			else
 			{
 				deslocamento.set_y(deslocamento.get_y() - ds.get_y());
-				samurai->set_vidas(samurai->get_vidas() - inimigo->get_dano());
+				samurai_input->set_vidas(samurai_input->get_vidas() - inimigo->get_dano());
 			}
 
-			samurai->set_velocidade(Vetor2D<float>(samurai->get_velocidade().get_x(), 0.0f));
+			samurai_input->set_velocidade(Vetor2D<float>(samurai_input->get_velocidade().get_x(), 0.0f));
 			inimigo->set_velocidade(Vetor2D<float>(inimigo->get_velocidade().get_x(), 0.0f));
 		}
 
-		samurai->set_posicao(deslocamento);
+		samurai_input->set_posicao(deslocamento);
 
-		if (samurai->get_vidas() <= 0)
-			samurai->set_vivo(false);
+		if (samurai_input->get_vidas() <= 0)
+			samurai_input->set_vivo(false);
 
 		if (inimigo->get_vidas() <= 0)
 		{
@@ -167,9 +213,9 @@ namespace Gerenciadores
 		}
 	}
 
-	void GerenciadorColisao::colisao_samurai_shuriken(Entidades::Shuriken* shuriken, Vetor2D<float> ds)
+	void GerenciadorColisao::colisao_samurai_shuriken(Entidades::Personagens::Samurai* samurai_input, Entidades::Shuriken* shuriken, Vetor2D<float> ds)
 	{
-		Vetor2D<float> deslocamento = samurai->get_posicao();
+		Vetor2D<float> deslocamento = samurai_input->get_posicao();
 
 		//Colisão na vertical
 		if (ds.get_x() > ds.get_y())
@@ -186,14 +232,14 @@ namespace Gerenciadores
 				deslocamento.set_x(deslocamento.get_x() - ds.get_x());
 			}
 
-			samurai->set_velocidade(Vetor2D<float>(0.0f, samurai->get_velocidade().get_y()));
+			samurai_input->set_velocidade(Vetor2D<float>(0.0f, samurai_input->get_velocidade().get_y()));
 		}
 
 		//Colisão na horizontal
 		else
 		{
 			//O samurai está acima do shuriken
-			if (samurai->get_posicao().get_y() < samurai->get_posicao().get_y())
+			if (samurai_input->get_posicao().get_y() < samurai_input->get_posicao().get_y())
 			{
 				deslocamento.set_y(deslocamento.get_y() + ds.get_y());
 			}
@@ -204,17 +250,17 @@ namespace Gerenciadores
 				deslocamento.set_y(deslocamento.get_y() - ds.get_y());
 			}
 
-			samurai->set_velocidade(Vetor2D<float>(samurai->get_velocidade().get_x(), 0.0f));
+			samurai_input->set_velocidade(Vetor2D<float>(samurai_input->get_velocidade().get_x(), 0.0f));
 		}
 
 		shuriken->set_pode_atirar(false);
 		shuriken->set_atirou_direita(false);
 		shuriken->set_atirou_esquerda(false);
 		shuriken->set_posicao(shuriken->get_posicao_inicial());
-		samurai->set_vidas(samurai->get_vidas() - 1);
-		samurai->set_posicao(deslocamento);
-		if (samurai->get_vidas() <= 0)
-			samurai->set_vivo(false);
+		samurai_input->set_vidas(samurai_input->get_vidas() - 1);
+		samurai_input->set_posicao(deslocamento);
+		if (samurai_input->get_vidas() <= 0)
+			samurai_input->set_vivo(false);
 	}
 
 	void GerenciadorColisao::executar(float delta_t)
@@ -228,28 +274,55 @@ namespace Gerenciadores
 			Entidades::Obstaculos::Obstaculo* obstaculo = *i;
 			for (j = vetor_personagens->begin(); j != vetor_personagens->end(); j++)
 			{
-				Entidades::Personagens::Personagem* personagem = *j;
-				Vetor2D<float> ds = calcula_colisao(obstaculo, personagem);
-
-				//Houve colisão
-				if (ds.get_x() < 0 && ds.get_y() < 0)
+				if (*j)
 				{
-					colisao_personagem_obstaculo(personagem, obstaculo, ds);
+					Entidades::Personagens::Personagem* personagem = *j;
+					Vetor2D<float> ds = calcula_colisao(obstaculo, personagem);
+
+					//Houve colisão
+					if (ds.get_x() < 0 && ds.get_y() < 0)
+					{
+						colisao_personagem_obstaculo(personagem, obstaculo, ds);
+					}
 				}
 			}
 		}
 
 		for (j = vetor_personagens->begin(); j != vetor_personagens->end(); j++)
 		{
-			if (*j != samurai)
+			if (*j)
 			{
-				Entidades::Personagens::Inimigo* inimigo = static_cast<Entidades::Personagens::Inimigo*>(*j);
-				Vetor2D<float> ds = calcula_colisao(inimigo, samurai);
-
-				//Houve colisão
-				if (ds.get_x() < 0 && ds.get_y() < 0 && inimigo->get_vivo())
+				if (*j != samurai && *j != samurai_2)
 				{
-					colisao_samurai_inimigo(inimigo, ds, delta_t);
+					Entidades::Personagens::Inimigo* inimigo = static_cast<Entidades::Personagens::Inimigo*>(*j);
+					Vetor2D<float> ds = calcula_colisao(inimigo, samurai);
+
+					//Houve colisão
+					if (ds.get_x() < 0 && ds.get_y() < 0 && inimigo->get_vivo())
+					{
+						colisao_samurai_inimigo(samurai, inimigo, ds, delta_t);
+					}
+				}
+			}
+		}
+
+		for (j = vetor_personagens->begin(); j != vetor_personagens->end(); j++)
+		{
+			if(*j)
+			{
+				if (*j != samurai && *j != samurai_2)
+				{
+					if (samurai_2)
+					{
+						Entidades::Personagens::Inimigo* inimigo = static_cast<Entidades::Personagens::Inimigo*>(*j);
+						Vetor2D<float> ds = calcula_colisao(inimigo, samurai_2);
+
+						//Houve colisão
+						if (ds.get_x() < 0 && ds.get_y() < 0 && inimigo->get_vivo())
+						{
+							colisao_samurai_inimigo(samurai_2, inimigo, ds, delta_t);
+						}
+					}
 				}
 			}
 		}
@@ -263,8 +336,29 @@ namespace Gerenciadores
 			//Houve colisão
 			if (ds.get_x() < 0 && ds.get_y() < 0 && shuriken->get_kamikaze_vivo())
 			{
-				colisao_samurai_shuriken(shuriken, ds);
+				colisao_samurai_shuriken(samurai, shuriken, ds);
 			}
 		}
+
+		if (samurai_2)
+		{
+			for (k = lista_shurikens.begin(); k != lista_shurikens.end(); k++)
+			{
+				Entidades::Shuriken* shuriken = *k;
+
+				Vetor2D<float> ds = calcula_colisao(shuriken, samurai_2);
+
+				//Houve colisão
+				if (ds.get_x() < 0 && ds.get_y() < 0 && shuriken->get_kamikaze_vivo())
+				{
+					colisao_samurai_shuriken(samurai_2, shuriken, ds);
+				}
+			}
+		}
+	}
+
+	void GerenciadorColisao::add_samurai_2(Entidades::Personagens::Samurai* samurai_2_input)
+	{
+		samurai_2 = samurai_2_input;
 	}
 }

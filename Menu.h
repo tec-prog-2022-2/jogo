@@ -2,32 +2,23 @@
 
 #include "Ente.h"
 
+
+//Canal do doidao
 class Menu : public Ente
 {
-private:
-	int item_selecionado;
-	sf::Font fonte;
-	sf::Text tela_inicial[4];
-	sf::Text tela_jogar[2];
-	sf::Text tela_fase[2];
-	sf::Text tela_fase_1_completa[3];
-	sf::Text tela_fase_2_completa[2];
-	sf::Text tela_rank[1];
-	sf::Text tela_salvar[1];
-	sf::Text tela_pausa[3];
+public:
+	int posicao;
+	bool pressionado;
+	bool selecionado;
+	sf::Font* fonte;
+	std::vector<const char*> opcoes;
+	std::vector<sf::Vector2f> coordenadas;
+	std::vector<sf::Text> textos;
+	std::vector<std::size_t> tamanhos;
 
 public:
-	Menu(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input = nullptr, const char* caminho_textura_input = nullptr);
+	Menu(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input = nullptr, const char* caminho_textura_input = nullptr, bool menu=true);
 	~Menu();
 	void desenhar();
-	void mover_cima();
-	void mover_baixo();
-	void menu_inicial();
-	void menu_fases();
-	void menu_selecionar_jogadores();
-	void menu_fase_1_completa();
-	void menu_fase_2_completa();
-	void menu_salvar();
-	void menu_rank();
-	void menu_pausa();
+	void desenhar(const bool menu_final);
 };

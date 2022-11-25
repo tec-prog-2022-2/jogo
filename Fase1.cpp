@@ -6,19 +6,17 @@ namespace Fases
 		Fase(gerenciador_grafico, background, samurai_input),
 		ganhou_fase{false}
 	{
-		criar_mapa();
 	}
 
 	Fase1::~Fase1()
 	{
-		
+		samurai = nullptr;
+		samurai_2 = nullptr;
 	}
 
 	void Fase1::criar_mapa()
 	{
 		srand(static_cast<unsigned int>(time(nullptr)));
-		
-		set_samurai(Vetor2D<float>(600.0f, 0.0f));
 
 		//Criando o chão
 		criar_plataforma(Vetor2D<float>(0.0f, 700.0f), Vetor2D<float>(4000.0f, 300.0f));
@@ -56,6 +54,10 @@ namespace Fases
 			criar_ninja(Vetor2D<float>(delta_x, 450.0f));
 			delta_x += 750.0f;
 		}
+
+		lista_entidades.add_entidade(static_cast<Entidades::Entidade*>(samurai));
+		vetor_personagens.push_back(static_cast<Entidades::Personagens::Personagem*>(samurai));
+		set_samurai(Vetor2D<float>(600.0f, 600.0f));
 
 		gerenciador_colisao.inicializar_lista_shurikens();
 	}
@@ -102,7 +104,7 @@ namespace Fases
 
 	void Fase1::criar_ninja(Vetor2D<float> posicao_input)
 	{
-		Entidades::Personagens::Ninja* ninja = new Entidades::Personagens::Ninja(gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//Bamboo-Free-PNG.png", posicao_input, samurai);
+		Entidades::Personagens::Ninja* ninja = new Entidades::Personagens::Ninja(gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//ninja.png", posicao_input, samurai);
 		if (!ninja)
 		{
 			std::cout << "Nao foi possivel criar ninja!" << std::endl;

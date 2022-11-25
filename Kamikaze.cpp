@@ -30,50 +30,59 @@ namespace Entidades
 
 		void Kamikaze::executar(float delta_t)
 		{
-			velocidade.set_x(0.0f);
-
-			if (shuriken->get_pode_atirar())
+			if (pode_executar)
 			{
-				if (this->posicao.get_x() < samurai->get_posicao().get_x() && fabs(this->posicao.get_x() - samurai->get_posicao().get_x()) < 600)
+				velocidade.set_x(0.0f);
+
+				//Efeito gravitacional
+				velocidade.set_y(velocidade.get_y() + GRAVIDADE * delta_t);
+				velocidade.set_y(velocidade.get_y() - GRAVIDADE * delta_t);
+
+				if (shuriken->get_pode_atirar())
 				{
-					shuriken->atirar_direita(delta_t);
-					shuriken->set_atirou_direita(true);
+					if (this->posicao.get_x() < samurai->get_posicao().get_x() && fabs(this->posicao.get_x() - samurai->get_posicao().get_x()) < 600)
+					{
+						shuriken->atirar_direita(delta_t);
+						shuriken->set_atirou_direita(true);
+					}
+
+					else if (this->posicao.get_x() > samurai->get_posicao().get_x() && fabs(this->posicao.get_x() - samurai->get_posicao().get_x()) < 600)
+					{
+						shuriken->atirar_esquerda(delta_t);
+						shuriken->set_atirou_esquerda(true);
+					}
+
+					duracao_tiro++;
+
+					if (duracao_tiro >= 200)
+					{
+						shuriken->set_atirou_direita(false);
+						shuriken->set_atirou_esquerda(false);
+						shuriken->set_pode_atirar(false);
+						shuriken->set_posicao(shuriken->get_posicao_inicial());
+						duracao_tiro = 0;
+					}
+
+					posicao = Vetor2D<float>(posicao.get_x() + velocidade.get_x() * delta_t, posicao.get_y() + velocidade.get_y() * delta_t);
 				}
 
-				else if (this->posicao.get_x() > samurai->get_posicao().get_x() && fabs(this->posicao.get_x() - samurai->get_posicao().get_x()) < 600)
+				else if (!shuriken->get_pode_atirar())
 				{
-					shuriken->atirar_esquerda(delta_t);
-					shuriken->set_atirou_esquerda(true);
+					temporizador_atirar++;
+					if (temporizador_atirar == 200)
+					{
+						shuriken->set_pode_atirar(true);
+						temporizador_atirar = 0;
+					}
 				}
-
-				/*else if (shuriken->get_atirou_direita())
-					shuriken->atirar_direita(delta_t);
-
-				else if (shuriken->get_atirou_esquerda())
-					shuriken->atirar_esquerda(delta_t);*/
-				
-				duracao_tiro++;
-
-				if (duracao_tiro >= 200)
-				{
-					shuriken->set_atirou_direita(false);
-					shuriken->set_atirou_esquerda(false);
-					shuriken->set_pode_atirar(false);
-					shuriken->set_posicao(shuriken->get_posicao_inicial());
-					duracao_tiro = 0;
-				}
-
-				posicao = Vetor2D<float>(posicao.get_x() + velocidade.get_x() * delta_t, posicao.get_y() + velocidade.get_y() * delta_t);
 			}
 
-			else if(!shuriken->get_pode_atirar())
+			else
 			{
-				temporizador_atirar++;
-				if (temporizador_atirar == 200)
-				{
-					shuriken->set_pode_atirar(true);
-					temporizador_atirar = 0;
-				}
+				temporizador_pode_executar++;
+
+				if (temporizador_pode_executar >= 5)
+					this->set_pode_executar(true);
 			}
 		}
 

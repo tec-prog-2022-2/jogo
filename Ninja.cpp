@@ -28,20 +28,32 @@ namespace Entidades
 
 		void Ninja::executar(float delta_t)
 		{
-			velocidade.set_x(0.0f);
-			velocidade.set_y(velocidade.get_y() + 30.0f * delta_t);
+			if (pode_executar)
+			{
+				velocidade.set_x(0.0f);
+				velocidade.set_y(velocidade.get_y() + GRAVIDADE * delta_t);
 
-			if (this->posicao.get_x() < samurai->get_posicao().get_x() && fabs(this->posicao.get_x()-samurai->get_posicao().get_x()) < 300)
-				velocidade.set_x(velocidade.get_x() + 35.0f);
+				if (this->posicao.get_x() < samurai->get_posicao().get_x() && fabs(this->posicao.get_x() - samurai->get_posicao().get_x()) < 300)
+					velocidade.set_x(velocidade.get_x() + 35.0f);
 
-			else if (this->posicao.get_x() > samurai->get_posicao().get_x() && fabs(this->posicao.get_x() - samurai->get_posicao().get_x()) < 300)
-				velocidade.set_x(velocidade.get_x() - 35.0f);
+				else if (this->posicao.get_x() > samurai->get_posicao().get_x() && fabs(this->posicao.get_x() - samurai->get_posicao().get_x()) < 300)
+					velocidade.set_x(velocidade.get_x() - 35.0f);
 
-			if (dobrar_velocidade)
-				posicao = Vetor2D<float>(posicao.get_x() + 2 * velocidade.get_x() * delta_t, posicao.get_y() + velocidade.get_y() * delta_t);
+				if (dobrar_velocidade)
+					posicao = Vetor2D<float>(posicao.get_x() + 2 * velocidade.get_x() * delta_t, posicao.get_y() + velocidade.get_y() * delta_t);
+
+				else
+					posicao = Vetor2D<float>(posicao.get_x() + velocidade.get_x() * delta_t, posicao.get_y() + velocidade.get_y() * delta_t);
+			}
 
 			else
-				posicao = Vetor2D<float>(posicao.get_x() + velocidade.get_x() * delta_t, posicao.get_y() + velocidade.get_y() * delta_t);
+			{
+				temporizador_pode_executar++;
+
+				if (temporizador_pode_executar >= 5)
+					this->set_pode_executar(true);
+			}
+		
 		}
 	}
 }

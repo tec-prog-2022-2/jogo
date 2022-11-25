@@ -5,7 +5,9 @@ namespace Gerenciadores
 	GerenciadorGrafico::GerenciadorGrafico(Vetor2D<float> tamanho_janela, Vetor2D<float> posicao_camera) :
 		janela{ nullptr },
 		camera(sf::Vector2f(posicao_camera.get_x(), posicao_camera.get_y()), sf::Vector2f(1000.0f, 1000.0f)),
+		camera_menu(),
 		mapa_texturas(),
+		mapa_fontes(),
 		altura_camera{tamanho_janela.get_y()}
 	{
 		janela = new sf::RenderWindow(sf::VideoMode(static_cast<unsigned int>(tamanho_janela.get_x()), static_cast<unsigned int>(tamanho_janela.get_y())), "Samurai++");
@@ -21,7 +23,16 @@ namespace Gerenciadores
 		std::map<const std::string, sf::Texture*>::const_iterator i = mapa_texturas.begin();
 
 		for (i = mapa_texturas.begin(); i != mapa_texturas.end(); i++)
+		{
 			delete i->second;
+		}
+
+		std::map<const std::string, sf::Font*>::const_iterator j = mapa_fontes.begin();
+
+		for (j = mapa_fontes.begin(); j != mapa_fontes.end(); j++)
+		{
+			delete j->second;
+		}
 	}
 
 	void GerenciadorGrafico::mostrar() const
@@ -57,6 +68,29 @@ namespace Gerenciadores
 		}
 	}
 
+	bool GerenciadorGrafico::carregar_fonte(const std::string caminho_fonte)
+	{
+		if (mapa_fontes.count(caminho_fonte))
+			return(true);
+
+		else
+		{
+			sf::Font* fonte = new sf::Font();
+			if (fonte->loadFromFile(caminho_fonte))
+			{
+				mapa_fontes.emplace(caminho_fonte, fonte);
+				return(true);
+			}
+
+			else
+			{
+				std::cout << "Nao foi possivel carregar a fonte de " << caminho_fonte << std::endl;
+				delete fonte;
+				return(false);
+			}
+		}
+	}
+
 	void GerenciadorGrafico::desenhar(const std::string caminho_imagem, const Vetor2D<float> posicao, sf::RectangleShape* corpo_input)
 	{
 		if (carregar_textura(caminho_imagem))
@@ -78,6 +112,11 @@ namespace Gerenciadores
 		camera.setCenter(sf::Vector2f(posicao.get_x(), posicao.get_y()));
 	}
 
+	void GerenciadorGrafico::centralizar_menu(Vetor2D<float> posicao)
+	{
+		camera_menu.setCenter(sf::Vector2f(posicao.get_x(), posicao.get_y()));
+	}
+
 	sf::RenderWindow* GerenciadorGrafico::get_janela() const
 	{
 		return(janela);
@@ -86,6 +125,11 @@ namespace Gerenciadores
 	void GerenciadorGrafico::set_camera()
 	{
 		janela->setView(camera);
+	}
+
+	void GerenciadorGrafico::set_camera_menu()
+	{
+		janela->setView(camera_menu);
 	}
 
 	void GerenciadorGrafico::reajustar_camera()

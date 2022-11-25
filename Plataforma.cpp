@@ -20,7 +20,7 @@ namespace Entidades
 			}
 
 			if (metade_tamanho)
-				get_corpo()->setSize(sf::Vector2f(get_corpo()->getSize().x / 2, get_corpo()->getSize().y));
+				corpo->setSize(sf::Vector2f(corpo->getSize().x / 2, corpo->getSize().y));
 		}
 
 		Plataforma::~Plataforma()
@@ -30,9 +30,20 @@ namespace Entidades
 
 		void Plataforma::executar(float delta_t)
 		{
-			//Efeito gravitacional
-			velocidade.set_y(velocidade.get_y() + 30.0f * delta_t);
-			velocidade.set_y(velocidade.get_y() - 30.0f * delta_t);
+			if (pode_executar)
+			{
+				//Efeito gravitacional
+				velocidade.set_y(velocidade.get_y() + GRAVIDADE * delta_t);
+				velocidade.set_y(velocidade.get_y() - GRAVIDADE * delta_t);
+			}
+
+			else
+			{
+				temporizador_pode_executar++;
+
+				if (temporizador_pode_executar >= 5)
+					this->set_pode_executar(true);
+			}
 		}
 	}
 }

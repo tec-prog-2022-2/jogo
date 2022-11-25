@@ -6,7 +6,9 @@ namespace Entidades
 		Ente{ gerenciador_grafico_input, caminho_textura_input},
 		posicao{ posicao_input },
 		velocidade{Vetor2D<float>(0.0f, 0.0f)},
-		tipo_entidade{-1}
+		tipo_entidade{-1},
+		pode_executar{false},
+		temporizador_pode_executar{0}
 	{
 	}
 
@@ -54,5 +56,15 @@ namespace Entidades
 	const Vetor2D<float> Entidade::get_velocidade() const
 	{
 		return(velocidade);
+	}
+
+	void Entidade::set_pode_executar(const bool e)
+	{
+		pode_executar = e;
+	}
+
+	const bool Entidade::get_pode_executar() const
+	{
+		return(pode_executar);
 	}
 }

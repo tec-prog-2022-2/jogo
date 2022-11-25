@@ -10,6 +10,7 @@ namespace Entidades
 		class Samurai : public Personagem
 		{
 		private:
+			bool jogador_principal;
 			int pontos;
 			float altura_maxima;
 			bool pode_pular;
@@ -34,6 +35,8 @@ namespace Entidades
 			void set_colisao_cima_espinho(const bool colisao);
 			void set_pontos(const int pontos_input);
 			const int get_pontos() const;
+			void set_jogador_principal(const bool jogador_principal_input);
+			const bool get_jogador_principal() const;
 		};
 	}
 }

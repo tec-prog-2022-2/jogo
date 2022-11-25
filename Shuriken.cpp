@@ -21,11 +21,22 @@ namespace Entidades
 
     void Shuriken::executar(float delta_t)
     {
-        velocidade.set_x(0.0f);
+        if (pode_executar)
+        {
+            velocidade.set_x(0.0f);
 
-        //Efeito gravitacional
-        velocidade.set_y(velocidade.get_y() + 30.0f * delta_t);
-        velocidade.set_y(velocidade.get_y() - 30.0f * delta_t);
+            //Efeito gravitacional
+            velocidade.set_y(velocidade.get_y() + GRAVIDADE * delta_t);
+            velocidade.set_y(velocidade.get_y() - GRAVIDADE * delta_t);
+        }
+
+        else
+        {
+        temporizador_pode_executar++;
+
+        if (temporizador_pode_executar >= 5)
+            this->set_pode_executar(true);
+        }
     }
 
     void Shuriken::atirar_direita(float delta_t)

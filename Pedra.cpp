@@ -26,9 +26,20 @@ namespace Entidades
 
         void Pedra::executar(float delta_t)
         {
-            //Efeito gravitacional
-            velocidade.set_y(velocidade.get_y() + 30.0f * delta_t);
-            velocidade.set_y(velocidade.get_y() - 30.0f * delta_t);
+            if(pode_executar)
+            {
+                //Efeito gravitacional
+                velocidade.set_y(velocidade.get_y() + GRAVIDADE * delta_t);
+                velocidade.set_y(velocidade.get_y() - GRAVIDADE * delta_t);
+            }
+
+            else
+            {
+                temporizador_pode_executar++;
+
+                if (temporizador_pode_executar >= 5)
+                    this->set_pode_executar(true);
+            }
         }
     }
 }

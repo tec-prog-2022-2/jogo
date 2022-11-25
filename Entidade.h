@@ -3,6 +3,8 @@
 #include"stdafx.h"
 #include"Ente.h"
 
+#define GRAVIDADE 30
+
 #define ID_PLATAFORMA 1
 #define ID_ESPINHO 2
 #define ID_PEDRA 3
@@ -22,6 +24,8 @@ namespace Entidades
 		Vetor2D<float> posicao;
 		Vetor2D<float> velocidade;
 		int tipo_entidade;
+		bool pode_executar;
+		int temporizador_pode_executar;
 
 	public:
 		Entidade(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input = nullptr, const char* caminho_textura_input = nullptr, Vetor2D<float> posicao_input = Vetor2D<float>(0.0f, 0.0f));
@@ -34,5 +38,7 @@ namespace Entidades
 		void set_velocidade(const Vetor2D<float> velocidade_input);
 		const Vetor2D<float> get_velocidade() const;
 		virtual void executar(float delta_t) = 0;
+		void set_pode_executar(const bool e);
+		const bool get_pode_executar() const;
 	};
 }

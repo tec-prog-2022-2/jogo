@@ -10,13 +10,13 @@ namespace Fases
 
 	Fase2::~Fase2()
 	{
+		samurai = nullptr;
+		samurai_2 = nullptr;
 	}
 
 	void Fase2::criar_mapa()
 	{
 		srand(static_cast<unsigned int>(time(nullptr)));
-
-		set_samurai(Vetor2D<float>(600.0f, 0.0f));
 
 		//Criando o chão
 		criar_plataforma(Vetor2D<float>(0.0f, 700.0f), Vetor2D<float>(4000.0f, 300.0f));
@@ -35,9 +35,29 @@ namespace Fases
 		delta_x = 1000.0f;
 		for (i = 0; i < aleatorio; i++)
 		{
-			criar_ninja(Vetor2D<float>(delta_x, 450.0f));
+			criar_ninja(Vetor2D<float>(delta_x, 500.0f));
 			delta_x += 750.0f;
 		}
+
+		aleatorio = 3 + rand() % 1;
+		delta_x = 1100.0f;
+		for (i = 0; i < aleatorio; i++)
+		{
+			criar_espinho(Vetor2D<float>(delta_x, 620.0f));
+			delta_x += 750.0f;
+		}
+
+		aleatorio = 3 + rand() % 2;
+		delta_x = 1000.0f;
+		for (i = 0; i < aleatorio; i++)
+		{
+			criar_izanagi(Vetor2D<float>(delta_x, 500.0f));
+			delta_x += 750.0f;
+		}
+
+		lista_entidades.add_entidade(static_cast<Entidades::Entidade*>(samurai));
+		vetor_personagens.push_back(static_cast<Entidades::Personagens::Personagem*>(samurai));
+		set_samurai(Vetor2D<float>(600.0f, 350.0f));
 	}
 
 
@@ -58,7 +78,7 @@ namespace Fases
 
 	void Fase2::criar_espinho(Vetor2D<float> posicao_input)
 	{
-		Entidades::Obstaculos::Espinho* espinho = new Entidades::Obstaculos::Espinho(gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//Bamboo-Free-PNG.png", posicao_input);
+		Entidades::Obstaculos::Espinho* espinho = new Entidades::Obstaculos::Espinho(gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//espinho.png", posicao_input);
 		if (!espinho)
 		{
 			std::cout << "Nao foi possivel criar espinho!" << std::endl;
@@ -71,7 +91,7 @@ namespace Fases
 
 	void Fase2::criar_ninja(Vetor2D<float> posicao_input)
 	{
-		Entidades::Personagens::Ninja* ninja = new Entidades::Personagens::Ninja(gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//Bamboo-Free-PNG.png", posicao_input, samurai);
+		Entidades::Personagens::Ninja* ninja = new Entidades::Personagens::Ninja(gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//ninja.png", posicao_input, samurai);
 		if (!ninja)
 		{
 			std::cout << "Nao foi possivel criar ninja!" << std::endl;
@@ -82,17 +102,17 @@ namespace Fases
 		vetor_personagens.push_back(static_cast<Entidades::Personagens::Personagem*>(ninja));
 	}
 
-	void Fase2::criar_izanami(Vetor2D<float> posicao_input)
+	void Fase2::criar_izanagi(Vetor2D<float> posicao_input)
 	{
-		Entidades::Personagens::Izanami* izanami = new Entidades::Personagens::Izanami(gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//Bamboo-Free-PNG.png", posicao_input, samurai);
-		if (!izanami)
+		Entidades::Personagens::Izanagi* izanagi = new Entidades::Personagens::Izanagi(gerenciador_grafico, "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//izanagi.png", posicao_input, samurai);
+		if (!izanagi)
 		{
 			std::cout << "Nao foi possivel criar izanami!" << std::endl;
 			exit(1);
 		}
 
-		lista_entidades.add_entidade(static_cast<Entidades::Entidade*>(izanami));
-		vetor_personagens.push_back(static_cast<Entidades::Personagens::Personagem*>(izanami));
+		lista_entidades.add_entidade(static_cast<Entidades::Entidade*>(izanagi));
+		vetor_personagens.push_back(static_cast<Entidades::Personagens::Personagem*>(izanagi));
 	}
 
 	void Fase2::set_ganhou_jogo(const bool ganhou_jogo_input)
