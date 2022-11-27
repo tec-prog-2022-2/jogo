@@ -13,7 +13,7 @@
 
 #define ID_NINJA 5
 #define ID_KAMIKAZE 6
-#define ID_IZANAMI 7
+#define ID_IZANAGI 7
 #define ID_SAMURAI 8
 
 namespace Entidades

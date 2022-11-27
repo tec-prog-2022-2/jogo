@@ -6,7 +6,7 @@ namespace Entidades
 	{
 		Plataforma::Plataforma(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input, const char* caminho_textura_input, Vetor2D<float> posicao_input) :
 			Obstaculo{ gerenciador_grafico_input, caminho_textura_input, posicao_input },
-			metade_tamanho{ false }
+			metade_comp{ false }
 		{
 			velocidade = Vetor2D<float>(0.0f, 0.0f);
 			corpo = new sf::RectangleShape(sf::Vector2f(200.0f, 20.f));
@@ -16,10 +16,10 @@ namespace Entidades
 
 			if (1 + rand() % 100 >= 75)
 			{
-				metade_tamanho = true;
+				metade_comp = true;
 			}
 
-			if (metade_tamanho)
+			if (metade_comp)
 				corpo->setSize(sf::Vector2f(corpo->getSize().x / 2, corpo->getSize().y));
 		}
 

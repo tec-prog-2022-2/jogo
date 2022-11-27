@@ -21,6 +21,8 @@ namespace Entidades
 			bool colisao_dir_espinho;
 			bool colisao_esq_espinho;
 			bool colisao_cima_espinho;
+			bool colisao_pedra;
+			bool perto_izanagi;
 
 		public:
 			Samurai(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input = nullptr, const char* caminho_textura_input=nullptr, Vetor2D<float> posicao_input = Vetor2D<float>(0.0f, 0.0f));
@@ -37,6 +39,8 @@ namespace Entidades
 			const int get_pontos() const;
 			void set_jogador_principal(const bool jogador_principal_input);
 			const bool get_jogador_principal() const;
+			void set_colisao_pedra(const bool colisao_pedra_input);
+			void set_perto_izanagi(const bool perto_izanagi_input);
 		};
 	}
 }

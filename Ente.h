@@ -7,7 +7,7 @@
 class Ente
 {
 protected:
-	static int id; //salvar objetos
+	static int id; 
 	Gerenciadores::GerenciadorGrafico* gerenciador_grafico;
 	const char* caminho_textura;
 	sf::RectangleShape* corpo;
@@ -18,5 +18,6 @@ public:
 	virtual ~Ente();
 	const int get_id() const;
 	sf::RectangleShape* get_corpo();
+	static void set_id(const int id_input);
 	virtual void desenhar() = 0;
 };

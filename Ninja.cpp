@@ -11,7 +11,7 @@ namespace Entidades
 			tipo_entidade = ID_NINJA;
 			vidas = 3;
 			vivo = true;
-			dano = 2;
+			dano = 5;
 
 			srand(static_cast<unsigned int>(time(nullptr)));
 
@@ -40,7 +40,7 @@ namespace Entidades
 					velocidade.set_x(velocidade.get_x() - 35.0f);
 
 				if (dobrar_velocidade)
-					posicao = Vetor2D<float>(posicao.get_x() + 2 * velocidade.get_x() * delta_t, posicao.get_y() + velocidade.get_y() * delta_t);
+					posicao = Vetor2D<float>(posicao.get_x() + 1.3 * velocidade.get_x() * delta_t, posicao.get_y() + velocidade.get_y() * delta_t);
 
 				else
 					posicao = Vetor2D<float>(posicao.get_x() + velocidade.get_x() * delta_t, posicao.get_y() + velocidade.get_y() * delta_t);

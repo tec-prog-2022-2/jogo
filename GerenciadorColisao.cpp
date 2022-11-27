@@ -103,7 +103,29 @@ namespace Gerenciadores
 						samurai_2->set_colisao_cima_espinho(true);
 				}
 				
-				else if (personagem->get_tipo_entidade() == ID_SAMURAI)
+				else if (personagem->get_tipo_entidade() == ID_SAMURAI && obstaculo->get_tipo_entidade() == ID_PEDRA)
+				{
+					Entidades::Personagens::Samurai* samurai_aux = static_cast<Entidades::Personagens::Samurai*>(personagem);
+					
+					if (samurai_aux->get_jogador_principal())
+						samurai->set_colisao_pedra(true);
+
+					else
+						samurai_2->set_colisao_pedra(true);
+				}
+
+				else if (personagem->get_tipo_entidade() == ID_SAMURAI && obstaculo->get_tipo_entidade() != ID_PEDRA)
+				{
+					Entidades::Personagens::Samurai* samurai_aux = static_cast<Entidades::Personagens::Samurai*>(personagem);
+
+					if (samurai_aux->get_jogador_principal())
+						samurai->set_colisao_pedra(false);
+
+					else
+						samurai_2->set_colisao_pedra(false);
+				}
+				
+				if (personagem->get_tipo_entidade() == ID_SAMURAI)
 				{
 					Entidades::Personagens::Samurai* samurai_aux = static_cast<Entidades::Personagens::Samurai*>(personagem);
 
@@ -135,7 +157,6 @@ namespace Gerenciadores
 				samurai->set_vidas(samurai->get_vidas() - espinho->get_dano());
 				if (samurai->get_vidas() <= 0)
 					samurai->set_vivo(false);
-
 			}
 		
 			else
@@ -209,6 +230,12 @@ namespace Gerenciadores
 			{
 				Entidades::Personagens::Kamikaze* kamikaze = static_cast<Entidades::Personagens::Kamikaze*>(inimigo);
 				kamikaze->get_shuriken()->set_kamikaze_vivo(false);
+			}
+
+			if (inimigo->get_tipo_entidade() == ID_IZANAGI)
+			{
+				samurai->set_perto_izanagi(false);
+				samurai_input->set_perto_izanagi(false);
 			}
 		}
 	}

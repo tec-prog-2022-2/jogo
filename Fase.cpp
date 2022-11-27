@@ -10,8 +10,11 @@ namespace Fases
 		lista_obstaculos{},
 		samurai{samurai_input},
 		samurai_2{nullptr},
-		gerenciador_colisao{ samurai, &vetor_personagens, &lista_obstaculos}
+		gerenciador_colisao{ samurai, &vetor_personagens, &lista_obstaculos},
+		bandeira{sf::Vector2f(100.0f, 100.0f)},
+		fundo{}
 	{
+		gerenciador_grafico->carregar_textura("C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//bandeira.png");
 	}
 
 	Fase::~Fase()
@@ -38,13 +41,25 @@ namespace Fases
 		}
 	}
 
+	void Fase::desenhar()
+	{
+		desenhar(caminho_textura);
+	}
+
+	void Fase::desenhar(const char* caminho_textura_input)
+	{
+		gerenciador_grafico->desenhar(caminho_textura_input, &fundo);
+	}
+
 	void Fase::executar(float delta_t)
 	{
 		gerenciador_grafico->limpar();
+		desenhar();
 		lista_entidades.executar_entidades(delta_t);
 		gerenciador_colisao.executar(delta_t);
 		gerenciador_grafico->centralizar(samurai->get_posicao() + Vetor2D<float>(0.0f, -100.0f));
 		lista_entidades.desenhar_entidades();
+		gerenciador_grafico->desenhar("C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//bandeira.png", Vetor2D<float>(1050.0f * 4+100.0f, 610.0f), &bandeira);
 		gerenciador_grafico->set_camera();
 		gerenciador_grafico->mostrar();
 	}

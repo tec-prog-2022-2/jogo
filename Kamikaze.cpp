@@ -15,9 +15,9 @@ namespace Entidades
 			velocidade = Vetor2D<float>(0.0f, 0.0f);
 			corpo = new sf::RectangleShape(sf::Vector2f(50.0f, 90.f));
 			tipo_entidade = ID_KAMIKAZE;
-			vidas = 5;
+			vidas = 2;
 			vivo = true;
-			dano = 0;
+			dano = 1;
 			shuriken = new Entidades::Shuriken(gerenciador_grafico_input, caminho_textura_shuriken, posicao_input);
 			shuriken->set_posicao_inicial(posicao_input);
 		}

@@ -16,7 +16,9 @@ namespace Entidades
 			colisao_cima_inimigo{ false },
 			colisao_dir_espinho{ false },
 			colisao_esq_espinho{ false },
-			colisao_cima_espinho{ false }
+			colisao_cima_espinho{ false },
+			colisao_pedra{false},
+			perto_izanagi{false}
 		{
 			velocidade = Vetor2D<float>(0.0f, 0.0f);
 			corpo = new sf::RectangleShape(sf::Vector2f(50.0f, 90.f));
@@ -34,12 +36,13 @@ namespace Entidades
 		{
 			if (pode_executar)
 			{
+				if (!pode_pular)
+					colisao_pedra = false;
+					
 				if (jogador_principal)
 				{
 					velocidade.set_x(0.0f);
 					velocidade.set_y(velocidade.get_y() + GRAVIDADE * delta_t);
-
-					std::cout << posicao.get_y() << std::endl;
 
 					if (colisao_dir_espinho && temporizador_movimento <= 100)
 					{
@@ -122,11 +125,23 @@ namespace Entidades
 					else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 					{
 						velocidade.set_x(velocidade.get_x() - 30.0f);
+
+						if (colisao_pedra)
+							velocidade.set_x(velocidade.get_x() / 2);
+
+						if(perto_izanagi)
+							velocidade.set_x(velocidade.get_x() / 2);
 					}
 
 					else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 					{
 						velocidade.set_x(velocidade.get_x() + 40.0f);
+
+						if (colisao_pedra)
+							velocidade.set_x(velocidade.get_x() / 2);
+
+						if (perto_izanagi)
+							velocidade.set_x(velocidade.get_x() / 2);
 					}
 				}
 
@@ -135,14 +150,12 @@ namespace Entidades
 					velocidade.set_x(0.0f);
 					velocidade.set_y(velocidade.get_y() + GRAVIDADE * delta_t);
 
-					std::cout << posicao.get_y() << std::endl;
-
 					if (colisao_dir_espinho && temporizador_movimento <= 100)
 					{
 						velocidade.set_x(velocidade.get_x() + 30.0f);
 						temporizador_movimento++;
 
-						if (temporizador_movimento == 100)
+						if (temporizador_movimento == 10)
 						{
 							colisao_dir_espinho = false;
 							temporizador_movimento = 0;
@@ -218,11 +231,23 @@ namespace Entidades
 					else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 					{
 						velocidade.set_x(velocidade.get_x() - 30.0f);
+
+						if (colisao_pedra)
+							velocidade.set_x(velocidade.get_x() / 2);
+
+						if (perto_izanagi)
+							velocidade.set_x(velocidade.get_x() / 2);
 					}
 
 					else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 					{
 						velocidade.set_x(velocidade.get_x() + 40.0f);
+
+						if (colisao_pedra)
+							velocidade.set_x(velocidade.get_x() / 2);
+
+						if (perto_izanagi)
+							velocidade.set_x(velocidade.get_x() / 2);
 					}
 				}
 
@@ -291,6 +316,16 @@ namespace Entidades
 		const bool Samurai::get_jogador_principal() const
 		{
 			return(jogador_principal);
+		}
+
+		void Samurai::set_colisao_pedra(const bool colisao_pedra_input)
+		{
+			colisao_pedra = colisao_pedra_input;
+		}
+
+		void Samurai::set_perto_izanagi(const bool perto_izanagi_input)
+		{
+			perto_izanagi = perto_izanagi_input;
 		}
 	}
 }

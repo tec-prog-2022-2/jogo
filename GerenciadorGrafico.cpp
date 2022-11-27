@@ -7,7 +7,6 @@ namespace Gerenciadores
 		camera(sf::Vector2f(posicao_camera.get_x(), posicao_camera.get_y()), sf::Vector2f(1000.0f, 1000.0f)),
 		camera_menu(),
 		mapa_texturas(),
-		mapa_fontes(),
 		altura_camera{tamanho_janela.get_y()}
 	{
 		janela = new sf::RenderWindow(sf::VideoMode(static_cast<unsigned int>(tamanho_janela.get_x()), static_cast<unsigned int>(tamanho_janela.get_y())), "Samurai++");
@@ -25,13 +24,6 @@ namespace Gerenciadores
 		for (i = mapa_texturas.begin(); i != mapa_texturas.end(); i++)
 		{
 			delete i->second;
-		}
-
-		std::map<const std::string, sf::Font*>::const_iterator j = mapa_fontes.begin();
-
-		for (j = mapa_fontes.begin(); j != mapa_fontes.end(); j++)
-		{
-			delete j->second;
 		}
 	}
 
@@ -68,29 +60,6 @@ namespace Gerenciadores
 		}
 	}
 
-	bool GerenciadorGrafico::carregar_fonte(const std::string caminho_fonte)
-	{
-		if (mapa_fontes.count(caminho_fonte))
-			return(true);
-
-		else
-		{
-			sf::Font* fonte = new sf::Font();
-			if (fonte->loadFromFile(caminho_fonte))
-			{
-				mapa_fontes.emplace(caminho_fonte, fonte);
-				return(true);
-			}
-
-			else
-			{
-				std::cout << "Nao foi possivel carregar a fonte de " << caminho_fonte << std::endl;
-				delete fonte;
-				return(false);
-			}
-		}
-	}
-
 	void GerenciadorGrafico::desenhar(const std::string caminho_imagem, const Vetor2D<float> posicao, sf::RectangleShape* corpo_input)
 	{
 		if (carregar_textura(caminho_imagem))
@@ -107,9 +76,54 @@ namespace Gerenciadores
 			std::cout << "Nao foi desenhar a textura de " << caminho_imagem << std::endl;
 	}
 
+	void GerenciadorGrafico::desenhar(const std::string caminho_imagem, sf::Sprite* fundo_input)
+	{
+		if (caminho_imagem == "C://joao//utfpr//quarto_periodo//tec_prog//jogo_dev//jogo_visual_studio//jogo_visual_studio//assets//fase_1.png")
+		{
+			if (carregar_textura(caminho_imagem))
+			{
+				sf::Texture* textura = mapa_texturas[caminho_imagem];
+				fundo_input->setTexture(*textura);
+				fundo_input->setScale(sf::Vector2f(2.5f, 2.5f));
+				fundo_input->setPosition(sf::Vector2f(0.0f, -200.0f));
+				janela->draw(*fundo_input);
+				fundo_input->setPosition(sf::Vector2f(1850.0f, -200.0f));
+				janela->draw(*fundo_input);
+				fundo_input->setPosition(sf::Vector2f(2 * 1850.0f, -200.0f));
+				janela->draw(*fundo_input);
+			}
+
+			else
+				std::cout << "Nao foi desenhar a textura de " << caminho_imagem << std::endl;
+		}
+
+		else
+		{
+			if (carregar_textura(caminho_imagem))
+			{
+				sf::Texture* textura = mapa_texturas[caminho_imagem];
+				fundo_input->setTexture(*textura);
+				fundo_input->setScale(sf::Vector2f(2.5f, 2.5f));
+				fundo_input->setPosition(sf::Vector2f(0.0f, -200.0f));
+				janela->draw(*fundo_input);
+				fundo_input->setPosition(sf::Vector2f(1100.0f, -200.0f));
+				janela->draw(*fundo_input);
+				fundo_input->setPosition(sf::Vector2f(2 * 1100.0f, -200.0f));
+				janela->draw(*fundo_input);
+				fundo_input->setPosition(sf::Vector2f(3 * 1100.0f, -200.0f));
+				janela->draw(*fundo_input);
+				fundo_input->setPosition(sf::Vector2f(4 * 1100.0f, -200.0f));
+				janela->draw(*fundo_input);
+			}
+
+			else
+				std::cout << "Nao foi desenhar a textura de " << caminho_imagem << std::endl;
+		}
+	}
+
 	void GerenciadorGrafico::centralizar(Vetor2D<float> posicao)
 	{
-		camera.setCenter(sf::Vector2f(posicao.get_x(), posicao.get_y()));
+		camera.setCenter(sf::Vector2f(posicao.get_x(), 300.0f));
 	}
 
 	void GerenciadorGrafico::centralizar_menu(Vetor2D<float> posicao)

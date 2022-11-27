@@ -14,11 +14,13 @@ public:
 	std::vector<const char*> opcoes;
 	std::vector<sf::Vector2f> coordenadas;
 	std::vector<sf::Text> textos;
+	std::vector<sf::Text> texto_ganhou;
+	std::vector<sf::Text> texto_perdeu;
 	std::vector<std::size_t> tamanhos;
 
 public:
 	Menu(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input = nullptr, const char* caminho_textura_input = nullptr, bool menu=true);
 	~Menu();
 	void desenhar();
-	void desenhar(const bool menu_final);
+	void desenhar(const int menu);
 };

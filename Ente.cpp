@@ -35,3 +35,8 @@ sf::RectangleShape* Ente::get_corpo()
 {
 	return(corpo);
 }
+
+void Ente::set_id(const int id_input)
+{
+	id = id_input;
+}

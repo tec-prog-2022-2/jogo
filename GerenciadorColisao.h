@@ -5,6 +5,7 @@
 #include"Samurai.h"
 #include"Inimigo.h"
 #include"Kamikaze.h"
+#include"Izanagi.h"
 #include"Shuriken.h"
 #include"Espinho.h"
 #include"Obstaculo.h"

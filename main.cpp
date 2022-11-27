@@ -1,8 +1,7 @@
-#include"Principal.h"
-#include"Menu.h"
+#include"Jogo.h"
 
 int main()
 {
-    Principal jogo;
+    Jogo jogo;
     return(0);
 }
