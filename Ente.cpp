@@ -26,11 +26,6 @@ Ente::~Ente()
 	caminho_textura = nullptr;
 }
 
-const int Ente::get_id() const
-{
-	return(id);
-}
-
 sf::RectangleShape* Ente::get_corpo()
 {
 	return(corpo);

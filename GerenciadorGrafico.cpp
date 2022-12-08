@@ -2,12 +2,24 @@
 
 namespace Gerenciadores
 {
-	GerenciadorGrafico::GerenciadorGrafico(Vetor2D<float> tamanho_janela, Vetor2D<float> posicao_camera) :
+	GerenciadorGrafico::GerenciadorGrafico(Vetor2D<float> tamanho_janela, Vetor2D<float> posicao_camera, Vetor2D<float> tamanho_camera) :
 		janela{ nullptr },
-		camera(sf::Vector2f(posicao_camera.get_x(), posicao_camera.get_y()), sf::Vector2f(1000.0f, 1000.0f)),
+		camera(sf::Vector2f(posicao_camera.get_x(), posicao_camera.get_y()), sf::Vector2f(tamanho_camera.get_x(), tamanho_camera.get_y())),
 		camera_menu(),
 		mapa_texturas(),
 		altura_camera{tamanho_janela.get_y()}
+	{
+		janela = new sf::RenderWindow(sf::VideoMode(static_cast<unsigned int>(tamanho_janela.get_x()), static_cast<unsigned int>(tamanho_janela.get_y())), "Samurai++");
+		janela->setView(camera);
+		janela->setFramerateLimit(60);
+	}
+
+	GerenciadorGrafico::GerenciadorGrafico(Vetor2D<float> tamanho_janela, Vetor2D<float> tamanho_camera):
+		janela{ nullptr },
+		camera(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(tamanho_camera.get_x(), tamanho_camera.get_y())),
+		camera_menu(),
+		mapa_texturas(),
+		altura_camera{ tamanho_janela.get_y() }
 	{
 		janela = new sf::RenderWindow(sf::VideoMode(static_cast<unsigned int>(tamanho_janela.get_x()), static_cast<unsigned int>(tamanho_janela.get_y())), "Samurai++");
 		janela->setView(camera);

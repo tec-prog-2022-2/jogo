@@ -16,22 +16,22 @@ Menu::Menu(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input, const c
 	fonte = new sf::Font();
 	fonte->loadFromFile(caminho_textura);
 	
-	opcoes = { "Samurai++", "Jogar Fase 1 com 1 Jogador", "Jogar Fase 1 com 2 Jogadores", "Jogar Fase 2 com 1 Jogador", "Jogar Fase 2 com 2 Jogadores", "Ganhou!", "Perdeu!"};
-	textos.resize(7);
+	opcoes = { "Samurai++", "Jogar Fase 1 com 1 Jogador", "Jogar Fase 1 com 2 Jogadores", "Jogar Fase 2 com 1 Jogador", "Jogar Fase 2 com 2 Jogadores", "Sair", "Ganhou!", "Perdeu!"};
+	textos.resize(6);
 	
-	coordenadas = { {500, 40}, {500, 191}, {500, 282}, {500, 370}, {500, 440}, {500, 480}, {500, 550} };
-	tamanhos = { 30, 28, 24, 24, 24, 24, 24 };
+	coordenadas = { {500, 40}, {500, 191}, {500, 282}, {500, 370}, {500, 440}, {500, 490}, {500, 550} };
+	tamanhos = { 30, 24, 24, 24, 24, 24, 24 };
 
 	texto_ganhou.resize(1);
 	texto_ganhou[0].setFont(*fonte);
-	texto_ganhou[0].setString(opcoes[5]);
+	texto_ganhou[0].setString(opcoes[6]);
 	texto_ganhou[0].setCharacterSize(tamanhos[0]);
 	texto_ganhou[0].setOutlineColor(sf::Color::Magenta);
 	texto_ganhou[0].setPosition(coordenadas[0]);
 
 	texto_perdeu.resize(1);
 	texto_perdeu[0].setFont(*fonte);
-	texto_perdeu[0].setString(opcoes[6]);
+	texto_perdeu[0].setString(opcoes[7]);
 	texto_perdeu[0].setCharacterSize(tamanhos[0]);
 	texto_perdeu[0].setOutlineColor(sf::Color::Magenta);
 	texto_perdeu[0].setPosition(coordenadas[0]);
@@ -60,7 +60,7 @@ void Menu::desenhar()
 
 	int i = 0;
 	
-	for (i=0; i<5; i++)
+	for (i=0; i<6; i++)
 	{
 		gerenciador_grafico->get_janela()->draw(textos[i]);
 	}

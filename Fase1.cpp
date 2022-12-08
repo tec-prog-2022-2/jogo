@@ -123,19 +123,6 @@ namespace Fases
 		lista_obstaculos.push_back(static_cast<Entidades::Obstaculos::Obstaculo*>(plataforma));
 	}
 
-	void Fase1::criar_espinho(Vetor2D<float> posicao_input)
-	{
-		Entidades::Obstaculos::Espinho* espinho = new Entidades::Obstaculos::Espinho(gerenciador_grafico, "assets//Bamboo-Free-PNG.png", posicao_input);
-		if (!espinho)
-		{
-			std::cout << "Nao foi possivel criar espinho!" << std::endl;
-			exit(1);
-		}
-
-		lista_entidades.add_entidade(static_cast<Entidades::Entidade*>(espinho));
-		lista_obstaculos.push_back(static_cast<Entidades::Obstaculos::Obstaculo*>(espinho));
-	}
-
 	void Fase1::criar_pedra(Vetor2D<float> posicao_input)
 	{
 		Entidades::Obstaculos::Pedra* pedra = new Entidades::Obstaculos::Pedra(gerenciador_grafico, "assets//pedra.png", posicao_input);

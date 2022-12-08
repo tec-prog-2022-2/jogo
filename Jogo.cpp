@@ -46,7 +46,7 @@ void Jogo::executar()
 			{
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !menu.pressionado) 
 				{
-					if (menu.posicao < 4) {
+					if (menu.posicao < 5) {
 						menu.posicao++;
 						menu.pressionado = true;
 						menu.textos[menu.posicao].setOutlineThickness(4);
@@ -93,7 +93,7 @@ void Jogo::executar()
 						gerenciador_grafico.set_camera();
 						samurai.set_vidas(5);
 						samurai.set_vivo(true);
-						samurai_2 = new Entidades::Personagens::Samurai(&gerenciador_grafico, "assets//samurai.png", Vetor2D<float>(600.0f, 0.0f));
+						samurai_2 = new Entidades::Personagens::Samurai(&gerenciador_grafico, "assets//samurai_2.png", Vetor2D<float>(600.0f, 0.0f));
 						samurai_2->set_jogador_principal(false);
 						samurai_2->set_vivo(true);
 						fase1.set_samurai_2(samurai_2, Vetor2D<float>(600.0f, 600.0f));
@@ -123,10 +123,15 @@ void Jogo::executar()
 							samurai.set_vivo(true);
 						}
 						samurai.set_vidas(5);
-						samurai_2 = new Entidades::Personagens::Samurai(&gerenciador_grafico, "assets//samurai.png", Vetor2D<float>(0.0f, 0.0f));
+						samurai_2 = new Entidades::Personagens::Samurai(&gerenciador_grafico, "assets//samurai_2.png", Vetor2D<float>(0.0f, 0.0f));
 						samurai_2->set_jogador_principal(false);
 						samurai_2->set_vivo(true);
 						fase2.set_samurai_2(samurai_2, Vetor2D<float>(650.0f, 600.0f));
+					}
+
+					if (menu.posicao == 5)
+					{
+						gerenciador_grafico.get_janela()->close();
 					}
 				}
 			}

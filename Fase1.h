@@ -15,7 +15,6 @@ namespace Fases
 		~Fase1();
 		void criar_mapa();
 		void criar_plataforma(Vetor2D<float> posicao_input, Vetor2D<float> tamanho_input = Vetor2D<float>(200.0f, 20.f));
-		void criar_espinho(Vetor2D<float> posicao_input);
 		void criar_pedra(Vetor2D<float> posicao_input);
 		void criar_ninja(Vetor2D<float> posicao_input);
 		void criar_kamikaze(Vetor2D<float> posicao_input);

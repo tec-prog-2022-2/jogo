@@ -6,7 +6,8 @@ namespace Entidades
 	{
 		Izanagi::Izanagi(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input, const char* caminho_textura_input, Vetor2D<float> posicao_input, Personagens::Samurai* samurai_input) :
 			Inimigo{gerenciador_grafico_input, caminho_textura_input, posicao_input, samurai_input},
-			mais_vidas{false}
+			mais_vidas{false},
+			atrasar_samurai{false}
 		{
 			velocidade = Vetor2D<float>(0.0f, 0.0f);
 			corpo = new sf::RectangleShape(sf::Vector2f(50.0f, 100.f));
@@ -34,20 +35,24 @@ namespace Entidades
 			{
 				velocidade.set_x(0.0f);
 				velocidade.set_y(velocidade.get_y() + GRAVIDADE * delta_t);
+				atrasar_samurai = false;
 
 				if (fabs(this->posicao.get_x() - samurai->get_posicao().get_x()) < 400)
 				{
 					samurai->set_perto_izanagi(true);
+					atrasar_samurai = true;
 				}
 
 				if (this->posicao.get_x() < samurai->get_posicao().get_x() && fabs(this->posicao.get_x() - samurai->get_posicao().get_x()) < 500)
 				{
 					velocidade.set_x(velocidade.get_x() + 20.0f);
+					atrasar_samurai = true;
 				}
 
 				else if (this->posicao.get_x() > samurai->get_posicao().get_x() && fabs(this->posicao.get_x() - samurai->get_posicao().get_x()) < 500)
 				{
 					velocidade.set_x(velocidade.get_x() - 20.0f);
+					atrasar_samurai = true;
 				}
 
 				posicao = Vetor2D<float>(posicao.get_x() + 2 * velocidade.get_x() * delta_t, posicao.get_y() + velocidade.get_y() * delta_t);

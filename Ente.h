@@ -16,7 +16,6 @@ protected:
 public:
 	Ente(Gerenciadores::GerenciadorGrafico* gerenciador_grafico_input = nullptr, const char* caminho_textura_input = nullptr, bool menu_input=false);
 	virtual ~Ente();
-	const int get_id() const;
 	sf::RectangleShape* get_corpo();
 	static void set_id(const int id_input);
 	virtual void desenhar() = 0;

@@ -4,7 +4,6 @@ namespace Fases
 {
 	Fase::Fase(Gerenciadores::GerenciadorGrafico* gerenciador_grafico, const char* background, Entidades::Personagens::Samurai* samurai_input):
 		Ente(gerenciador_grafico, background),
-		passou_fase{false},
 		lista_entidades{},
 		vetor_personagens{},
 		lista_obstaculos{},

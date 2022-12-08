@@ -19,7 +19,6 @@ namespace Fases
 	class Fase :public Ente
 	{
 	protected:
-		bool passou_fase;
 		Listas::ListaEntidades lista_entidades;
 		std::vector<Entidades::Personagens::Personagem*> vetor_personagens;
 		std::list<Entidades::Obstaculos::Obstaculo*> lista_obstaculos;

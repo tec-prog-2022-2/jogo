@@ -16,10 +16,10 @@ namespace Entidades
 			srand(static_cast<unsigned int>(time(nullptr)));
 
 			if (1 + rand() % 100 >= 80)
-				dobrar_velocidade = true;
+				aumentar_velocidade = true;
 
 			else
-				dobrar_velocidade = false;
+				aumentar_velocidade = false;
 		}
 
 		Ninja::~Ninja()
@@ -39,7 +39,7 @@ namespace Entidades
 				else if (this->posicao.get_x() > samurai->get_posicao().get_x() && fabs(this->posicao.get_x() - samurai->get_posicao().get_x()) < 300)
 					velocidade.set_x(velocidade.get_x() - 35.0f);
 
-				if (dobrar_velocidade)
+				if (aumentar_velocidade)
 					posicao = Vetor2D<float>(posicao.get_x() + 1.3 * velocidade.get_x() * delta_t, posicao.get_y() + velocidade.get_y() * delta_t);
 
 				else
