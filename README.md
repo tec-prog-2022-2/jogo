@@ -1,2 +1,2 @@
 # Samurai++
-Samurai++ é um jogo 2D de plataforma apresentado na disciplina de Técnicas de Programação, desenvolvido em C++. A biblioteca gráfica utilizada foi SFML
+To play the game, you need to install the SFML library and add the files to your environment. The developers used the Visual Studio IDE to run software.
